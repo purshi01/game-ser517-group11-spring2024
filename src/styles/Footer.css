@@ -1,0 +1,29 @@
+.site-footer {
+    background-color: #2a2e30;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .site-footer .footer-content {
+    margin: 0 auto;
+    max-width: 960px;
+  }
+  
+  .site-footer .footer-links {
+    margin-top: 10px;
+  }
+  
+  .site-footer .footer-links a {
+    color: #ecf0f1;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  /* Additional styling for hover effect */
+  .site-footer .footer-links a:hover {
+    color: #3498db;
+  }
+  
