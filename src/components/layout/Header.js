@@ -1,5 +1,5 @@
-import React from 'react';
-import '../../styles/Header.css';
+import React from 'react'; //react lib
+import '../../styles/Header.css'; //css lib
 
 const Header = () => (
   <header className="site-header">
