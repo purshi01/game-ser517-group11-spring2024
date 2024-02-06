@@ -93,6 +93,11 @@
     cursor: pointer;
   }
 
+  .blank{
+    background: #333;
+    color: #676767;
+  }
+
 
 
   
