@@ -1,10 +1,14 @@
 import React from 'react';
 import '../../styles/Header.css';
+import logo from '../../assets/Header-Logo.png';
 
 const Header = () => (
   <header className="site-header">
     <div className="logo">
-      <h1>Gamification</h1>
+      <img src={logo} alt="Logo" /> {/* Replace h1 with img tag for the logo */}
+    </div>
+    <div className="logo">
+      <h1>BrainBucks</h1>
     </div>
     <nav className="main-nav">
       <ul>

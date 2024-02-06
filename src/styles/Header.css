@@ -1,38 +1,55 @@
+/* Header Styles */
 .site-header {
-    background-color: #2a2e30;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-  
-  .site-header .logo h1 {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .site-header .main-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .site-header .main-nav ul li {
+  background-color: #FFFFFF;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  border: 2px solid black;
+}
+
+/* Logo Styles */
+.site-header .logo img {
+  height: auto; /* Set height to auto to maintain aspect ratio */
+  max-height: 50px; /* Set maximum height for the logo */
+  width: auto; /* Allow the width to adjust automatically */
+}
+
+.site-header .main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  border: #000000;
+}
+
+.site-header .main-nav ul li {
+  margin-left: 20px;
+}
+
+.site-header .main-nav ul li a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Additional styling for hover effect */
+.site-header .main-nav ul li a:hover {
+  color: #2c3e50;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 10px; /* Adjust padding for smaller screens */
     margin-left: 20px;
+    margin-right: 20px;
   }
-  
-  .site-header .main-nav ul li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
+
+  .site-header .main-nav ul li {
+    margin-left: 10px; /* Adjust margin for smaller screens */
   }
-  
-  /* Additional styling for hover effect */
-  .site-header .main-nav ul li a:hover {
-    color: #2c3e50;
-  }
-  
+}
