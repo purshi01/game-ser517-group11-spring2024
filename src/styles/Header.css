@@ -8,10 +8,12 @@
     margin-right: 50px;
   }
   
-  .site-header .logo h1 {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-  }
+  /* Logo Styles */
+.site-header .logo img {
+  height: auto; /* Set height to auto to maintain aspect ratio */
+  max-height: 50px; /* Set maximum height for the logo */
+  width: auto; /* Allow the width to adjust automatically */
+}
   
   .site-header .main-nav ul {
     list-style: none;
