@@ -1,0 +1,104 @@
+ /* Style the header */
+  header1 {
+    background-color: #333;
+    flex-direction: column;
+    padding: 10px;
+    align-items: center;
+    gap: 9px;
+    width: 20%;
+    margin-top: 10px;;
+  }
+  
+  
+  /* Style form elements */
+  .inputs{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 8px;
+  }
+
+  .input{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 20px;
+    width: 580px;
+    height: 80px;
+    background: #321;
+    border-radius: 8px;
+  }
+
+  .input img{
+    margin: 0px 30px;
+  }
+
+  .input input{
+    height: 50px;
+    width: 430px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #797979;
+    font-size: 19px;
+  }
+  
+  /* Style a dark-themed game board */
+  .container {
+    display: flex;
+    flex-direction:  column;
+    width: 700px;
+    margin: auto;
+    margin-top: 50px;
+    background: #334;
+    padding-bottom: 30px;
+  }
+
+  .text{
+    color: brown;
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  .forgot-password{
+    padding-left: 20px;
+    margin-top: 30px;
+    color: #321;
+    font-size: 20px;
+  }
+
+  .forgot-password span{
+    cursor: pointer;
+    color: brown;
+  }
+
+  .submit-container{
+    display: flex;
+    gap: 30px;
+    margin: 60px auto;
+  }
+
+  .submit{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 60px;
+    color: #fff;
+    justify-content: center;
+    background: brown;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .blank{
+    background: #333;
+    color: #676767;
+  }
+
+
+
+  
+  
