@@ -1,5 +1,5 @@
-import React from 'react'; //react lib
-import '../../styles/Header.css'; //css lib
+import React from 'react';
+import '../../styles/Header.css';
 import logo from '../../assets/Header-Logo.png';
 
 const Header = () => (
