@@ -13,8 +13,9 @@
 /* Logo Styles */
 .site-header .logo img {
   height: auto; /* Set height to auto to maintain aspect ratio */
-  max-height: 50px; /* Set maximum height for the logo */
+  max-height: 70px; /* Set maximum height for the logo */
   width: auto; /* Allow the width to adjust automatically */
+  background: #555;
 }
 
 .site-header .main-nav ul {

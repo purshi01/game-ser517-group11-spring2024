@@ -1,6 +1,6 @@
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import { Login } from './LoginRegistration/SignUp';
+import { Login } from './Pages/SignUp';
 import './App.css';
 
 function App() {
