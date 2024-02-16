@@ -1,18 +1,19 @@
+import React from 'react';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import { Login } from './Pages/SignUp';
+import LoginPage from './Pages/LoginPage';
 import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 function App() {
-    return (
+  return (
       <div className="App">
-      <Header />
-        <div>
-          <Login/>
-        </div>    
-      <Footer />
-    </div>
-    );
+        <Header />
+        <LoginPage/>
+        <Footer />
+      </div>
+  );
 }
 
 export default App;
