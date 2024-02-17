@@ -1,12 +1,14 @@
 // LoginPage.jsx
 import React, { useState } from 'react';
 import '../styles/LoginPage.css'
-import Particles from '@tsparticles/react';
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
 
   const handleSignIn = (e) => {
@@ -50,7 +52,7 @@ const LoginPage = () => {
         <div className='button'>
           <button type="submit">Sign In</button>
           <span>or</span>
-          <button type="button">Sign Up</button>
+          <button type="button" onClick={() => navigate('/signup')}>Sign Up</button>
         </div>
        
       </form>

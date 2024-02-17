@@ -7,7 +7,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 const Header = () => (
   <header className="site-header">
     <div className="logo">
+      <Link to={"/"}>
       <img src={logo} alt="BrainBucks Logo" /> {/* Replace h1 with img tag for the logo */}
+      </Link>
     </div>
     {/* <nav className="main-nav">
       <ul>
