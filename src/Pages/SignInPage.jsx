@@ -1,27 +1,38 @@
 // LoginPage.jsx
 import React, { useState } from 'react';
-import '../styles/LoginPage.css'
+import '../styles/SignInPage.css'
 import { useNavigate } from 'react-router-dom';
+import { signIn } from '../services/userLoginService';
 
 
-const LoginPage = () => {
+const SignInPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
-      // Simulate an authentication check
-    if (username !== 'user' || password !== 'pass') { // Example condition
-      setErrorMessage('Incorrect username or password.'); // Set error message
-    } else {
-      setErrorMessage(''); // Clear error message on successful login
-      // Proceed with successful login actions...
+    try {
+      const data = await signIn({ username, password });
+      console.log('Sign In successful', data);
+
+      // Navigation logic based on user type
+      if (data.userType === 'student') {
+        navigate('/studenthome');
+      } else if (data.userType === 'instructor') {
+        navigate('/instructorhome');
+      } else {
+        // Handle unexpected user type
+        console.error('Unexpected user type');
+      }
+    } catch (error) {
+      console.error('Sign In failed', error.response ? error.response.data : error);
+      setErrorMessage('Incorrect username or password.');
     }
-    console.log('Sign In:', username, password);
   };
+
   const handleInputChange = (setter) => (e) => {
     setter(e.target.value);
     if (errorMessage) {
@@ -60,4 +71,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignInPage;
