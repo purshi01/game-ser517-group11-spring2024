@@ -1,0 +1,26 @@
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  
+  .course-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .course-thumbnail {
+    height: 100px;
+    /* Set a background image if you have one */
+  }
+  
+  .course-name {
+    padding-top: 8px;
+    font-size: 0.9em;
+  }
+  

@@ -21,3 +21,23 @@ export const signIn = (credentials) => {
       return response.data; // Return the full response data
     });
 };
+
+// Function to get enrolled courses for a student by student ID
+export const getEnrolledCourses = (studentId) => {
+  // Include the Authorization header with the token retrieved from localStorage
+  const config = {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+  };
+
+  return axios.get(`${API_BASE_URL}/students/${studentId}/courses`, config)
+    .then(response => {
+      // Assuming the response contains an array of courses
+      return response.data.courses; // Return the courses
+    })
+    .catch(error => {
+      console.error("Error fetching enrolled courses:", error);
+      throw error; // Rethrow the error for handling by the calling component
+    });
+};

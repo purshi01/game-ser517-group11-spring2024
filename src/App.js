@@ -2,8 +2,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext'; 
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+import Header from './components/navigation/Header';
+import Footer from './components/navigation/Footer';
 import SignInPage from './Pages/SignInPage';
 import SignUpPage from './Pages/SignUpPage';
 import StudentDashboard from './Pages/StudentHomePage';
