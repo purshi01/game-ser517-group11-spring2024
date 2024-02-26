@@ -15,14 +15,15 @@ const SignInPage = () => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const data = await signIn({ username, password });
-      console.log('Sign In successful', data);
-
+      // const data = await signIn({ username, password });
+      // console.log('Sign In successful', data);
+      // data.userType = 'student';
+      const data = 'student';
       // Navigation logic based on user type
-      if (data.userType === 'student') {
-        navigate('/studenthome');
+      if (data === 'student') {
+        navigate('/student-dashboard');
       } else if (data.userType === 'instructor') {
-        navigate('/instructorhome');
+        navigate('/instructor-dashboard');
       } else {
         // Handle unexpected user type
         console.error('Unexpected user type');

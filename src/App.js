@@ -15,7 +15,6 @@ function App() {
   const { isLoggedIn, userType } = useAuth(); // Using the useAuth hook to access the auth context
 
   return (
-    <AuthProvider>
       <Router>
         <div className="App">
           <Header />
@@ -30,7 +29,6 @@ function App() {
           <Footer />
         </div>
       </Router>
-    </AuthProvider>
   );
 }
 
