@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center; /* Align items vertically */
-  padding: 10px 50px;
+  padding: 0px 30px;
   margin-left: 50px;
   margin-right: 50px;
   border: 1px solid black;
@@ -28,8 +28,21 @@
 }
 /* Cart Icon Styles */
 .site-header .cart-icon i {
-  font-size: 3.0rem; /* Icon size */
+  font-size: 3rem; /* Icon size */
   color: #000000; /* Icon color */
+}
+
+/* Header.css */
+.gold-coin-icon {
+  width: 24px; /* Or any size you prefer */
+  height: auto;
+  margin-right: 8px;
+}
+
+.remaining-bucks {
+  display: flex;
+  align-items: center;
+  /* Add more styles as needed */
 }
 
 /* Media Query for Mobile Devices */

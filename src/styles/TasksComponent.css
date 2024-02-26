@@ -1,0 +1,46 @@
+/* TasksComponent.css */
+
+.completed-tasks {
+  background-color: #f4f4f4; /* Light grey background */
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.completed-tasks h2 {
+  color: #333; /* Dark grey color for text */
+  margin-bottom: 16px;
+}
+
+.completed-tasks ul {
+  list-style-type: none; /* Remove default list bullet points */
+  padding: 0;
+}
+
+.completed-tasks ul li {
+  background-color: #fff; /* White background for each task */
+  border: 1px solid #ddd; /* Light grey border */
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 10px; /* Space between tasks */
+  display: flex;
+  justify-content: space-between; /* Align title and status at opposite ends */
+  align-items: center;
+}
+
+.completed-tasks ul li.completed {
+  background-color: #e0ffe0; /* Light green background for completed tasks */
+}
+
+.completed-tasks ul li.incomplete {
+  background-color: #ffe0e0; /* Light red background for pending tasks */
+}
+
+.task-title {
+  font-size: 16px;
+}
+
+.task-status {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555; /* Dark grey color for task status */
+}
