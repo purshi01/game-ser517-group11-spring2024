@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import '../styles/SignInPage.css'
 import { useNavigate } from 'react-router-dom';
-import { signIn } from '../services/userLoginService';
-
+// import { signIn } from '../services/userLoginService';
+import { useAuth } from '../context/AuthContext'; // Ensure the path is correct
 
 const SignInPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+    // Correctly use useAuth here to access setIsLoggedIn and setUserType
+  const { setIsLoggedIn, setUserType } = useAuth();
 
 
   const handleSignIn = async (e) => {
@@ -21,6 +23,10 @@ const SignInPage = () => {
       const data = 'student';
       // Navigation logic based on user type
       if (data === 'student') {
+        localStorage.setItem('token', '1213131');
+        localStorage.setItem('userType', 'student');
+        setIsLoggedIn(true);
+        setUserType('student');
         navigate('/student-dashboard');
       } else if (data.userType === 'instructor') {
         navigate('/instructor-dashboard');
