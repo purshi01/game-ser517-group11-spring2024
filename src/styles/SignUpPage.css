@@ -1,0 +1,89 @@
+/* SignUpPage.css */
+.signup-container {
+  padding-top: 10%;
+  padding-left: 35%;
+  padding-right: 35%;
+  padding-bottom: 5%;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5; /* Background color */
+}
+
+.signup-form {
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 36px;
+  text-align: center;
+}
+
+.signup-form input {
+  width: 40%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+
+.signup-form button {
+  width: 20%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 15px;
+  border: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.signup-form button:hover {
+  background-color: #333;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
+.signup-form span {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.signup-form .input-error {
+  border: 1px solid red;
+  color: red; /* Make input text red */
+}
+
+.signup-form .input-error::placeholder {
+  color: red; /* Make placeholder text red */
+}
+
+/* Mobile specific styles */
+@media (max-width: 768px) {
+  .signup-container {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 50%; /* Reduce top padding for mobile */
+    padding-bottom: 30%; /* Adjust bottom padding for mobile */
+  }
+
+  .signup-form input,
+  .signup-form button {
+    width: 80%; /* Increase width for mobile to make it easier to interact with */
+  }
+
+  .signup-form button {
+    width: 80%; /* Ensure button width is also adjusted for mobile */
+  }
+  .signup-form span {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .signup-form .input-error {
+    border: 1px solid red;
+    color: red; /* Make input text red */
+  }
+
+  .signup-form .input-error::placeholder {
+    color: red; /* Make placeholder text red */
+  }
+}

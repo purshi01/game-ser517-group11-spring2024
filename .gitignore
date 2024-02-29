@@ -1,4 +1,5 @@
-**node_modules
+# Node modules
 node_modules/
-node_modules/.cache/
-node_modules/.cache/default-development
+
+# Package lock file
+package-lock.json
