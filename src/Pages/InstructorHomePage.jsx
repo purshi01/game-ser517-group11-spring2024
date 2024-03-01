@@ -108,19 +108,16 @@ const InstructorDashboard = () => {
 
   const dummyTasks = [
     { id: 1, courseId: 1, title: "Design Patterns Assignment", completed: true },
-    { id: 2, courseId: 1, title: "UML Diagrams Homework", completed: false },
-    { id: 3, courseId: 2, title: "Agile Methodologies Quiz", completed: true },
-    { id: 4, courseId: 3, title: "Normalization Lab", completed: false },
-    { id: 5, courseId: 4, title: "Binary Trees Exercise", completed: true },
-    // Add more tasks as needed
-  ];
-
-  const dummyNextTasks = [
-    { id: 1, courseId: 1, title: "Implementting Design Patterns", completed: true },
-    { id: 2, courseId: 1, title: "Project Phase 2: ", completed: false },
-    { id: 3, courseId: 2, title: "Agile Methodologies Quiz", completed: true },
-    { id: 4, courseId: 3, title: "Normalization Lab", completed: false },
-    { id: 5, courseId: 4, title: "Binary Trees Exercise", completed: true },
+    { id: 2, courseId: 1, title: "Implementting Design Patterns", completed: true },
+    { id: 3, courseId: 1, title: "Project Phase 2: ", completed: false },
+    { id: 4, courseId: 2, title: "UML Quiz", completed: false },
+    { id: 5, courseId: 2, title: "UML Diagrams Homework", completed: false },
+    { id: 6, courseId: 2, title: "DevOps  Quiz", completed: true },
+    { id: 7, courseId: 2, title: "Agile Methodologies Quiz", completed: true },
+    { id: 8, courseId: 3, title: "Normalization Lab", completed: false },
+    { id: 9, courseId: 3, title: "Query Processing nd Optimization Quiz", completed: false },
+    { id: 10, courseId: 3, title: "SQL Bsics Quiz-1", completed: true },
+    { id: 11, courseId: 4, title: "Binary Trees Exercise", completed: true },
     // Add more tasks as needed
   ];
 
@@ -147,9 +144,13 @@ const InstructorDashboard = () => {
       );
       setLeaderboardData(filteredLeaders);
       const courseTasks = dummyTasks.filter(
-        (task) => task.courseId === selectedCourse.id
+        (task) => (task.courseId === selectedCourse.id && task.completed === true)
       );
       setTaskListData(courseTasks);
+      const nextCourseTasks = dummyTasks.filter(
+        (nextTask) => (nextTask.courseId === selectedCourse.id && nextTask.completed === false)
+      );
+      setNextTaskListData(nextCourseTasks)
     }
   }, [selectedCourse]); // This effect only depends on selectedCourse
 
@@ -163,6 +164,10 @@ const InstructorDashboard = () => {
   return (
     <div className="instructor-dashboard">
       <div className="dashboard-grid">
+        <div className="leaderboard">
+          <h2>Leaderboard</h2>
+          <LeaderboardComponent leaders={leaderboardData} userType="student" />
+        </div>
         <div className="enrolled-courses">
           <h2>Current Courses</h2>
           <CoursesComponent
@@ -170,13 +175,9 @@ const InstructorDashboard = () => {
             onCourseSelect={handleCourseSelect}
           />
         </div>
-        <div className="leaderboard">
-          <h2>Leaderboard</h2>
-          <LeaderboardComponent leaders={leaderboardData} userType="student" />
-        </div>
         <div className="tasks">
-          <h2>Upcoming Tasks</h2>
-          <TasksComponent tasks={taskListData} />
+          <h2>To Do</h2>
+          <TasksComponent tasks={nexttaskListData} />
           <h2>Completed Tasks</h2>
           <TasksComponent tasks={taskListData} />
         </div>

@@ -4,7 +4,7 @@ import "../../styles/TasksComponent.css";
 const TasksComponent = ({ tasks }) => {
   return (
     <div className="completed-tasks">
-      <h2>Completed Tasks</h2>
+      <h2>Tasks</h2>
       <ul>
         {tasks.map((task) => (
           <li
