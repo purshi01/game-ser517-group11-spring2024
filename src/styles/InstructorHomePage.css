@@ -1,0 +1,48 @@
+.instructor-dashboard {
+    padding: 8% 8% 4% 8%; /* top right bottom left */
+  }
+  
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* Adjust these values based on your preference */
+    gap: 20px; /* Space between columns */
+    width: 100%; /* Adjust based on the maximum width you prefer */
+  }
+  
+  .enrolled-courses,
+  .leaderboard{
+    padding: 20px;
+    border: 1px solid #ccc; /* Just for visual separation, adjust as needed */
+    border-radius: 5px; /* Optional, for rounded corners */
+  }
+
+  .tasks {
+    padding: 15px;
+    border: 1px solid #ccc; /* Just for visual separation, adjust as needed */
+    border-radius: 5px; /* Optional, for rounded corners */
+  }
+  
+  /* You might want to add some more styling for headings or list items */
+  h2 {
+    margin-top: 0;
+  }
+  
+  /* Media query for devices with width less than 768px */
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr; /* Ensure single column layout on small screens */
+      padding-top: 50%;
+    }
+  
+    .enrolled-courses,
+    .leaderboard,
+    .completed-tasks {
+      padding: 15px; /* Adjust padding for better spacing on small screens */
+    }
+  
+    /* Adjust heading sizes on small screens for better readability */
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  

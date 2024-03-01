@@ -61,3 +61,30 @@
     max-height: 50px; /* Adjust logo size for mobile */
   }
 }
+
+.site-header .main-nav {
+  overflow: hidden;
+  margin-left: 400px ;
+}
+
+.site-header .main-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header .main-nav ul li {
+  float: left;
+}
+
+.site-header .main-nav ul li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.site-header .main-nav ul li a:hover {
+  background-color: grey;
+}

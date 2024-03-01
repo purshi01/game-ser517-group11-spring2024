@@ -28,10 +28,10 @@ function App() {
             path="/"
             element={
               isLoggedIn ? (
-                userType === "student" ? (
-                  <StudentDashboard />
-                ) : (
+                userType === "instructor" ? (
                   <InstructorDashboard />
+                ) : (
+                  <StudentDashboard />
                 )
               ) : (
                 <Navigate to="/signin" />
@@ -47,20 +47,20 @@ function App() {
             element={!isLoggedIn ? <SignInPage /> : <Navigate to="/" />}
           />
           <Route
-            path="/student-dashboard"
+            path="/instructor-dashboard"
             element={
-              isLoggedIn && userType === "student" ? (
-                <StudentDashboard />
+              isLoggedIn && userType === "instructor" ? (
+                <InstructorDashboard />
               ) : (
                 <Navigate to="/signin" />
               )
             }
           />
           <Route
-            path="/instructor-dashboard"
+            path="/student-dashboard"
             element={
-              isLoggedIn && userType === "instructor" ? (
-                <InstructorDashboard />
+              isLoggedIn && userType === "student" ? (
+                <StudentDashboard />
               ) : (
                 <Navigate to="/signin" />
               )
