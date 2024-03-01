@@ -178,6 +178,7 @@ const InstructorDashboard = () => {
         <div className="tasks">
           <h2>To Do</h2>
           <TasksComponent tasks={nexttaskListData} />
+          <br/>
           <h2>Completed Tasks</h2>
           <TasksComponent tasks={taskListData} />
         </div>
