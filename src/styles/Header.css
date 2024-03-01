@@ -1,6 +1,6 @@
 /* Header Styles */
 .site-header {
-  background-color: #ffffff00;
+  background-color: rgb(119, 119, 122);
   display: flex;
   justify-content: space-between;
   align-items: center; /* Align items vertically */
@@ -86,5 +86,5 @@
 }
 
 .site-header .main-nav ul li a:hover {
-  background-color: grey;
+  background-color: rgb(91, 91, 92);
 }

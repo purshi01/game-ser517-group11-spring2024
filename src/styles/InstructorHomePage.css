@@ -11,12 +11,14 @@
   
   .enrolled-courses,
   .leaderboard{
+    background-color: rgb(119, 119, 122);
     padding: 20px;
     border: 1px solid #ccc; /* Just for visual separation, adjust as needed */
     border-radius: 5px; /* Optional, for rounded corners */
   }
 
   .tasks {
+    background-color: rgb(119, 119, 122);
     padding: 15px;
     border: 1px solid #ccc; /* Just for visual separation, adjust as needed */
     border-radius: 5px; /* Optional, for rounded corners */

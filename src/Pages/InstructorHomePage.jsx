@@ -3,6 +3,7 @@ import "../styles/InstructorHomePage.css"; // Assuming you have a CSS file for s
 import CoursesComponent from "../components/common/CoursesComponent";
 import LeaderboardComponent from "../components/common/LeaderboardComponent";
 import TasksComponent from "../components/common/TasksComponent";
+import PageBackGround from "../components/common/PageBackGround";
 
 const InstructorDashboard = () => {
   const courses = [
@@ -163,6 +164,7 @@ const InstructorDashboard = () => {
 
   return (
     <div className="instructor-dashboard">
+      <PageBackGround/>
       <div className="dashboard-grid">
         <div className="leaderboard">
           <h2>Leaderboard</h2>

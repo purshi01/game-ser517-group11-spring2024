@@ -1,0 +1,8 @@
+body {
+    background-image: url('../assets/backgroundimage2.jpeg'); /* Set the background image */
+    background-size: 100%; /* Cover the entire viewport with the background image */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    margin: 0; /* Remove default body margin */
+    padding: 0; /* Remove default body padding */
+  }
