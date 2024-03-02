@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
 .leaderboard {
   background-color: #f5f5f5;
   padding: 20px;
@@ -7,6 +9,8 @@
 }
 
 .leaderboard h2 {
+  font-family: 'Press Start 2P';
+  font-size: 10px;
   text-align: center;
 }
 
@@ -32,11 +36,15 @@ table td {
   padding: 8px;
   border: 1px solid #dddddd;
   text-align: left;
+  font-family: 'Press Start 2P';
+  font-size: 10px;
 }
 
 .remaining-bucks {
   text-align: right;
   margin-top: 20px;
+  font-family: 'Press Start 2P';
+  font-size: 10px;
 }
 
 .leader-image {

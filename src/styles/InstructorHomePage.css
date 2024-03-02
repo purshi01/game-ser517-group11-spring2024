@@ -3,6 +3,8 @@
   }
   
   .dashboard-grid {
+    font-family: 'Press Start 2P';
+    font-size: 10px;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr; /* Adjust these values based on your preference */
     gap: 20px; /* Space between columns */

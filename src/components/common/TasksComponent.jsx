@@ -13,7 +13,7 @@ const TasksComponent = ({ tasks }) => {
           >
             <span className="task-title">{task.title}</span>
             <span className="task-status">
-              {task.completed ? "Completed" : "In complete"}
+              {task.completed ? "Done" : "Not Done"}
             </span>
           </li>
         ))}

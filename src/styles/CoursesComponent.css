@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
+  font-family: 'Press Start 2P';
+  font-size: 10px;
 }
 
 .course-card {
