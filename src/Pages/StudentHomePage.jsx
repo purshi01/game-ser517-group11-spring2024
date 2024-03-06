@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../styles/StudentHomePage.css"; // Assuming you have a CSS file for styling
-import CoursesComponent from "../components/common/CoursesComponent";
+import "../styles/GamerRank.css";
 import LeaderboardComponent from "../components/common/LeaderboardComponent";
 import TasksComponent from "../components/common/TasksComponent";
 
 const StudentDashboard = () => {
-  const courses = [
-    { id: 1, name: "SER 231 Software Design" },
-    { id: 2, name: "SER 215 Software Processes" },
-    { id: 3, name: "SER 322 Database Management" },
-    { id: 4, name: "SER 501 Advanced Data Structure and algo" },
-    // Add more courses if needed
-  ];
-
   const dummyLeaders = [
     {
       id: 1,
@@ -121,57 +113,33 @@ const StudentDashboard = () => {
     // Add more tasks as needed
   ];
 
-  // State to hold the currently selected course
-  const [selectedCourse, setSelectedCourse] = useState(null);
-
   // State for leaderboard and task list based on the selected course
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [taskListData, setTaskListData] = useState([]);
   // Effect to fetch and set leaderboard and task list data when a course is selected
-  useEffect(() => {
-    // Set a default selected course if not already selected and courses are loaded
-    if (!selectedCourse && courses.length > 0) {
-      setSelectedCourse(courses[0]);
-    }
-  }, [courses]); // This effect only runs when courses changes, which should be infrequent
 
   useEffect(() => {
-    // Update leaderboard data when selectedCourse changes
-    if (selectedCourse) {
-      const filteredLeaders = dummyLeaders.filter(
-        (leader) => leader.courseId === selectedCourse.id
-      );
-      setLeaderboardData(filteredLeaders);
-      const courseTasks = dummyTasks.filter(
-        (task) => task.courseId === selectedCourse.id
-      );
-      setTaskListData(courseTasks);
-    }
-  }, [selectedCourse]); // This effect only depends on selectedCourse
-
-  // Handler to change the selected course
-  const handleCourseSelect = (courseId) => {
-    const course = courses.find((c) => c.id === courseId);
-    console.log("Inside handleCourseSelect course = " + course.id);
-    setSelectedCourse(course);
-  };
+    setLeaderboardData(dummyLeaders);
+    setTaskListData(dummyTasks);
+  }); // This effect only depends on selectedCourse
 
   return (
     <div className="student-dashboard">
       <div className="dashboard-grid">
         <div className="enrolled-courses">
-          <h2>Enrolled Courses</h2>
-          <CoursesComponent
-            courses={courses}
-            onCourseSelect={handleCourseSelect}
-          />
+          <h2>My position</h2>
+          <div className="gamer-rank-container">
+            <div className="rank-badge">{"6"}</div>
+            <div className="gamer-info">
+              <h2 className="gamer-username">{"Purshi"}</h2>
+            </div>
+          </div>
         </div>
         <div className="leaderboard">
           <h2>Leaderboard</h2>
           <LeaderboardComponent leaders={leaderboardData} userType="student" />
         </div>
         <div className="completed-tasks">
-          <h2>Completed Tasks</h2>
           <TasksComponent tasks={taskListData} />
         </div>
       </div>

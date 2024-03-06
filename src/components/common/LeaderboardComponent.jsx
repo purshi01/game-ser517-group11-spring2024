@@ -49,11 +49,6 @@ const LeaderboardComponent = ({ leaders, userType }) => {
             ))}
           </tbody>
         </table>
-        {!isInstructor && (
-          <div className="student-info">
-            <p>My Position: 6</p>
-          </div>
-        )}
       </div>
     </div>
   );

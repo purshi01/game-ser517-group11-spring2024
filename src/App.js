@@ -13,6 +13,7 @@ import SignInPage from "./Pages/SignInPage";
 import SignUpPage from "./Pages/SignUpPage";
 import StudentDashboard from "./Pages/StudentHomePage";
 import InstructorDashboard from "./Pages/InstructorHomePage";
+import PageBackGround from "./components/common/PageBackGround";
 import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <Router>
+      <PageBackGround />
       <div className="App">
         <Header />
         <Routes>
