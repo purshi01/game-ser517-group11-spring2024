@@ -16,8 +16,7 @@ import InstructorDashboard from "./Pages/InstructorHomePage";
 import PageBackGround from "./components/common/PageBackGround";
 import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Temp from "./Pages/test_name_generation";
-import Test_namegeneration from "./Pages/test_name_generation";
+import NameGenerator from "./Pages/NameGenerator";
 
 function App() {
   const { isLoggedIn, userType } = useAuth();
@@ -71,9 +70,9 @@ function App() {
             }
           />
           <Route
-            path="/test-name-generation"
-            element={<test_name_generation />}
-          ></Route>
+            path="/NameGenerator"
+            element={<NameGenerator />}
+          />
           {/* Define additional routes as needed */}
         </Routes>
         <Footer />
