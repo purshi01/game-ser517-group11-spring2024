@@ -58,12 +58,23 @@ const NameGenerator = () => {
     }
   };
 
+  const downloadCSV = () => {
+    const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(generatedNames);
+    const link = document.createElement("a");
+    link.setAttribute("href", csvContent);
+    link.setAttribute("download", "generated_names.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   return (
     <div>
       <h1>Testing random name generation</h1>
       <textarea value={generatedNames} readOnly cols={50} rows={15}> </textarea>
       <textarea value={numOfStudents} typeof="number" onChange={(e) => setNumOfStudents(e.target.value)}></textarea>
       <button onClick={addStudents}>Generate Multiple Students</button>
+      <button onClick={downloadCSV}>Download as a .csv file</button>
     </div>
   );
 };
