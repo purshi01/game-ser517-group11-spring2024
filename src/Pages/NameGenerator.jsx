@@ -37,6 +37,7 @@ const NameGenerator = () => {
             throw error;
         }
         */
+        
 
     } while (generatedNames.includes(studentName) || existsInDatabase)
     return {username: studentName, password: password};
@@ -71,10 +72,10 @@ const NameGenerator = () => {
   return (
     <div>
       <h1>Testing random name generation</h1>
-      <textarea value={generatedNames} readOnly cols={50} rows={15}> </textarea>
-      <textarea value={numOfStudents} typeof="number" onChange={(e) => setNumOfStudents(e.target.value)}></textarea>
-      <button onClick={addStudents}>Generate Multiple Students</button>
-      <button onClick={downloadCSV}>Download as a .csv file</button>
+      <textarea className="generated-names" value={generatedNames} readOnly cols={50} rows={15}> </textarea>
+      <textarea className="number-of-students" value={numOfStudents} typeof="number" onChange={(e) => setNumOfStudents(e.target.value)}></textarea>
+      <button className="generate-button" onClick={addStudents}>Generate Multiple Students</button>
+      <button className="download-button" onClick={downloadCSV}>Download as a .csv file</button>
     </div>
   );
 };
