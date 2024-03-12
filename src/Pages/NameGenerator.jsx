@@ -1,9 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
+import "../styles/NameGenerator.css"
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const NameGenerator = () => {
+  useEffect(() => {
+    document.title = "Add Student Accounts"
+  }, []);
+
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
 
@@ -26,10 +31,12 @@ const NameGenerator = () => {
 
         studentName = randomColor + randomObject + randomNumber;
 
-       /*
+       /* Not too sure on this aspect
         try {
+            // const response = await axios.get(`${API_BASE_URL}/auth/register
+            // const response = await acios.get('${API_BASE_URL}/instructors/courses/${courseId}/students)
             // const response = await axios.get(`${API_BASE_URL}/${studentName}`);
-            const response = axios.get(`${API_BASE_URL}/${studentName}`);
+
             existsInDatabase = response.data.exists;
         } catch (error) {
             console.error("Error checking if student name exists:", error);
@@ -70,12 +77,24 @@ const NameGenerator = () => {
   }
 
   return (
-    <div>
-      <h1>Testing random name generation</h1>
-      <textarea className="generated-names" value={generatedNames} readOnly cols={50} rows={15}> </textarea>
-      <textarea className="number-of-students" value={numOfStudents} typeof="number" onChange={(e) => setNumOfStudents(e.target.value)}></textarea>
-      <button className="generate-button" onClick={addStudents}>Generate Multiple Students</button>
-      <button className="download-button" onClick={downloadCSV}>Download as a .csv file</button>
+    <div className="container">
+      <h1>Generate Student Accounts</h1>
+      <div className="columns">
+        <div className="column">
+          <textarea className="generated-names" value={generatedNames} readOnly cols={50} rows={15}></textarea>
+        </div>
+        <div className="column">
+          <div>
+            <textarea className="number-of-students" value={numOfStudents} cols={3} rows={2} typeof="number" onChange={(e) => setNumOfStudents(e.target.value)}></textarea>
+          </div>
+          <div className="button-container">
+            <button className="generate-button" onClick={addStudents}>Generate Students</button>
+          </div>
+          <div className="button-container">
+            <button className="download-button" onClick={downloadCSV}>Download as a .csv file</button> {/*Moved Bwloe*/}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
