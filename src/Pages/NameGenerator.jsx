@@ -13,8 +13,17 @@ const NameGenerator = () => {
   const [numOfStudents, setNumOfStudents] = useState('1');
 
   const generateRandomName = () => { 
-    const color = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'Black', 'White', 'Pink', 'Purple'];
-    const object = ['Whale', 'Fish', 'Dog', 'Cat', 'Mouse', 'Sheep', 'Goat', 'Rat', 'Frog', 'Horse', 'Spaceship', 'Car', 'Bike', 'Bus', 'Train', 'Ship', 'Boat', 'Shuttle', 'Plane', 'Jet', 'King', 'Queen', 'Jester', 'Joker', 'Ace', 'Crown', 'Prince', 'Princess', 'Knight', 'Rook', 'Pawn', 'Bishop', 'Cheese', 'Pasta', 'Noodles', 'Soup', 'Egg', 'Carrot', 'Apple', 'Banana', 'Guitar', 'Piano', 'Violin', 'Organ', 'Keyboard', 'Square', 'Triangle', 'Circle', 'Rectangle', 'Lake', 'Sea', 'Ocean', 'Pond', 'Water', 'Rain', 'Cloud'];
+    const color = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'Black', 'White', 'Pink', 'Purple', 'Silver', 'Gold'];
+    const object = [
+      'Whale', 'Fish', 'Dog', 'Cat', 'Mouse', 'Sheep', 'Goat', 'Rat', 'Frog', 'Horse', 'Wolf', 'Cow', 'Pig', 'Chicken', 'Tiger', 
+      'Unicorn', 'Dragon', 'Werewolf', 'Vampire', 'Mermaid', 
+      'Spaceship', 'Car', 'Bike', 'Bus', 'Train', 'Ship', 'Boat', 'Shuttle', 'Plane', 'Jet',
+      'King', 'Queen', 'Jester', 'Joker', 'Ace', 'Crown', 'Prince', 'Princess', 'Knight', 'Rook', 'Pawn', 'Bishop',
+      'Cheese', 'Pasta', 'Noodles', 'Soup', 'Egg', 'Carrot', 'Apple', 'Banana', 'Crackers', 
+      'Guitar', 'Piano', 'Violin', 'Organ', 'Keyboard',
+      'Square', 'Triangle', 'Circle', 'Rectangle',
+      'Lake', 'Sea', 'Ocean', 'Pond', 'Water', 'Rain', 'Cloud'
+    ];
     const letters = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
 
     let studentName;
@@ -81,17 +90,26 @@ const NameGenerator = () => {
       <h1>Generate Student Accounts</h1>
       <div className="columns">
         <div className="column">
-          <textarea className="generated-names" value={generatedNames} readOnly cols={50} rows={15}></textarea>
+          <textarea className="generated-names" 
+            value={generatedNames} 
+            readOnly 
+            cols={50} rows={15}
+            ></textarea>
         </div>
         <div className="column">
           <div>
-            <textarea className="number-of-students" value={numOfStudents} cols={3} rows={2} typeof="number" onChange={(e) => setNumOfStudents(e.target.value)}></textarea>
+            <textarea className="number-of-students" 
+            value={numOfStudents}
+            cols={3} rows={1} 
+            typeof="number" 
+            onChange={(e) => setNumOfStudents(e.target.value)}
+            ></textarea>
           </div>
           <div className="button-container">
             <button className="generate-button" onClick={addStudents}>Generate Students</button>
           </div>
           <div className="button-container">
-            <button className="download-button" onClick={downloadCSV}>Download as a .csv file</button> {/*Moved Bwloe*/}
+            <button className="download-button" onClick={downloadCSV}>Download as a .csv file</button>
           </div>
         </div>
       </div>
