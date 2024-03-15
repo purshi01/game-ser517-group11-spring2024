@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Announcements.css"; // Assuming you have a CSS file for styling
 import CoursesComponent from "../components/common/CoursesComponent";
 import PageBackGround from "../components/common/PageBackGround";
+import AnnouncementComponent from "../components/instructor-components/AnnouncementComponent";
 
 
 const Announcements = () => {
@@ -206,6 +207,7 @@ const Announcements = () => {
 
     // State to hold the currently selected course
     const [selectedCourse, setSelectedCourse] = useState(null);
+    const [announcementListData, setannouncementListData] = useState([]);
 
     // Effect to fetch and set leaderboard and task list data when a course is selected
     useEffect(() => {
@@ -219,11 +221,32 @@ const Announcements = () => {
     useEffect(() => {
     // Update leaderboard data when selectedCourse changes
     if (selectedCourse) {
-      const filteredLeaders = dummyAnnouncements.filter(
+      const filteredAnnouncements = dummyAnnouncements.filter(
         (announce) => announce.courseId === selectedCourse.id
       );
+      setannouncementListData(filteredAnnouncements);
     }
   }, [selectedCourse]); // This effect only depends on selectedCourse
+
+
+  return (
+    <div className="announcements-dashboard">
+      <PageBackGround/>
+      <div className="dashboard-grid">
+        <div className="enrolled-courses">
+          <h2>Current Courses</h2>
+          <CoursesComponent
+            courses={courses}
+            onCourseSelect={handleCourseSelect}
+          />
+        </div>
+        <div className="announcements">
+          <h2>Announcements</h2>
+          <AnnouncementComponent announcement={announcementListData} />
+        </div>
+      </div>
+    </div>
+  );
 
 }; 
 
