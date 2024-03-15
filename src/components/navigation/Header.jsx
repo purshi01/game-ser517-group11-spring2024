@@ -1,10 +1,11 @@
 import React from "react";
 import "../../styles/Header.css";
 import logo from "../../assets/Header-Logo.png";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useAuth } from "../../context/AuthContext";
 import goldCoinIcon from "../../assets/dollar.jpg";
+import Announcements from "../../Pages/Announcements.jsx";
 const Header = () => {
   const { isLoggedIn, userType, remainingBucks } = useAuth();
   return (
@@ -19,7 +20,7 @@ const Header = () => {
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/dashboard">Dashboard</a></li>
-        <li><a href="/announcements">Announcements</a></li>
+        <li><Link to="/announcements">Announcements</Link></li>
         <li><a href="/services">Courses</a></li>
         <li><a href="/account">Account</a></li>
         <li><a href="/email">Inbox</a></li>

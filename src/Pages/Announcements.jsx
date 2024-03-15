@@ -217,6 +217,13 @@ const Announcements = () => {
     }
   }, [courses]);
 
+  // Handler to change the selected course
+  const handleCourseSelect = (courseId) => {
+    const course = courses.find((c) => c.id === courseId);
+    console.log("Inside handleCourseSelect course = " + course.id);
+    setSelectedCourse(course);
+  };
+
     // Useeffect to change announcments hwne clicked on a course
     useEffect(() => {
     // Update leaderboard data when selectedCourse changes
