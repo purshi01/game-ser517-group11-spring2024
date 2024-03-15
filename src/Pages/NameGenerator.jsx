@@ -53,6 +53,8 @@ const NameGenerator = () => {
             throw error;
         }
         */
+
+        // Try doing it entirely locally
         
 
     } while (generatedNames.includes(studentName) || existsInDatabase)
@@ -79,6 +81,9 @@ const NameGenerator = () => {
     const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(generatedNames);
     const link = document.createElement("a");
     link.setAttribute("href", csvContent);
+    /*
+      let filename = ${coursetitle}
+    */
     link.setAttribute("download", "generated_names.csv");
     document.body.appendChild(link);
     link.click();
