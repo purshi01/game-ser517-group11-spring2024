@@ -86,7 +86,7 @@ const Announcements = () => {
         
         Let’s get started`,
         courseName: "SER 215",
-        courseId: 1,
+        courseId: 2,
     },
     {
         id: 6,
@@ -103,7 +103,7 @@ const Announcements = () => {
         
         TA`,
         courseName: "SER 215",
-        courseId: 1,
+        courseId: 2,
     },
     {
         id: 7,
@@ -120,7 +120,7 @@ const Announcements = () => {
         
         TA`,
         courseName: "SER 215",
-        courseId: 1,
+        courseId: 2,
     },
     {
         id: 8,
@@ -137,7 +137,7 @@ const Announcements = () => {
         
         TA`,
         courseName: "SER 215",
-        courseId: 1,
+        courseId: 2,
     },
     {
         id: 9,
@@ -152,7 +152,7 @@ const Announcements = () => {
         
         TA`,
         courseName: "SER 332",
-        courseId: 1,
+        courseId: 3,
     },
     {
         id: 10,
@@ -169,7 +169,7 @@ const Announcements = () => {
         
         TA`,
         courseName: "SER 332",
-        courseId: 1,
+        courseId: 3,
     },
     {
         id: 11,
@@ -184,7 +184,7 @@ const Announcements = () => {
         
         TA`,
         courseName: "SER 332",
-        courseId: 1,
+        courseId: 3,
     },
     {
         id: 12,
@@ -201,7 +201,7 @@ const Announcements = () => {
         
         TA`,
         courseName: "SER 332",
-        courseId: 1,
+        courseId: 3,
     },
     ];
 

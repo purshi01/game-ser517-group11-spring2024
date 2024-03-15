@@ -11,7 +11,7 @@ const AnnouncementComponent = ({ announcement }) => {
             key={announce.id}
             className="published"
           >
-            <span className="announcement-title">{announce.title}</span>
+            <span className="announcement-announcement">{announce.announcement}</span>
           </li>
         ))}
       </ul>
