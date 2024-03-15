@@ -23,7 +23,6 @@ export const signIn = (credentials) => {
     });
 };
 
-// TODO: remove this or change this to be based on instructor if not already existing.
 // Function to get enrolled courses for a student by student ID
 export const getEnrolledCourses = (studentId) => {
   // Include the Authorization header with the token retrieved from localStorage
