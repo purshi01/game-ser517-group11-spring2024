@@ -126,7 +126,7 @@ const StudentDashboard = () => {
   return (
     <div className="student-dashboard">
       <div className="dashboard-grid">
-        <div className="enrolled-courses">
+        <div className="my-position">
           <h2>My position</h2>
           <div className="gamer-rank-container">
             <div className="rank-badge">{"6"}</div>
