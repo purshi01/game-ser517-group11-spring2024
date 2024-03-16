@@ -28,8 +28,9 @@ const SignInPage = () => {
         setRemainingBucks(10);
         navigate("/student-dashboard");
       } else if (data === "instructor") {
+        console.log("Inside instructor function");
         localStorage.setItem("token", "1213131");
-        localStorage.setItem("userType", "student");
+        localStorage.setItem("userType", "instructor");
         setIsLoggedIn(true);
         setUserType("instructor");
         setRemainingBucks(10);
