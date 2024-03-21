@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+  /*
   .columns {
     padding: 8% 8% 4% 8%;
     display: flex;
@@ -14,15 +14,28 @@
     width: 100%;
     column-gap: 20px;
   }
-  
+  */
+  .columns {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Two columns with a 3:1 ratio */
+    gap: 20px; /* Adjust the gap between grid items */
+  }
+
   .column {
     border: 5px;
     border-color: black;
-    background-color: aqua; 
+    padding: 10px;
+    align-items: center;
   }
 
+  .generated-names,
+  .number-of-students {
+    margin-top: 10px;
+  }
   .button-container {
     margin-top: 10px;
+    text-align: center;
   }
 
   /*TODO: Come back and figure this out*/

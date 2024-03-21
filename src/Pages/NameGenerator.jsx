@@ -12,6 +12,9 @@ const NameGenerator = () => {
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
 
+  const [courseId, setCourseId] = useState('123456');
+  const [courseTitle, setCourseTitle] = useState('ABC123')
+
   const generateRandomName = () => { 
     const color = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'Black', 'White', 'Pink', 'Purple', 'Silver', 'Gold'];
     const object = [
@@ -40,22 +43,19 @@ const NameGenerator = () => {
 
         studentName = randomColor + randomObject + randomNumber;
 
-       /* Not too sure on this aspect
         try {
-            // const response = await axios.get(`${API_BASE_URL}/auth/register
-            // const response = await acios.get('${API_BASE_URL}/instructors/courses/${courseId}/students)
-            // const response = await axios.get(`${API_BASE_URL}/${studentName}`);
-
+          /*
+            const response = await axios.get(`${API_BASE_URL}/auth/register`);
+            const response = await acios.get(`${API_BASE_URL}/instructors/courses/${courseId}/students)`);
+            const response = await axios.get(`${API_BASE_URL}/${studentName}`);
+            
             existsInDatabase = response.data.exists;
+          */
         } catch (error) {
             console.error("Error checking if student name exists:", error);
             existsInDatabase = false; // Assuming it doesn't exist if there's an error
             throw error;
         }
-        */
-
-        // Try doing it entirely locally
-        
 
     } while (generatedNames.includes(studentName) || existsInDatabase)
     return {username: studentName, password: password};
@@ -81,10 +81,7 @@ const NameGenerator = () => {
     const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(generatedNames);
     const link = document.createElement("a");
     link.setAttribute("href", csvContent);
-    /*
-      let filename = ${coursetitle}
-    */
-    link.setAttribute("download", "generated_names.csv");
+    link.setAttribute("download", `${courseTitle}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -99,7 +96,7 @@ const NameGenerator = () => {
             value={generatedNames} 
             readOnly 
             cols={50} rows={15}
-            ></textarea>
+            >{API_BASE_URL}</textarea>
         </div>
         <div className="column">
           <div>
