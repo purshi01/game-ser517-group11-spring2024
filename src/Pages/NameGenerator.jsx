@@ -11,63 +11,21 @@ const NameGenerator = () => {
 
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
+  const courseId = 123;
 
-  const generateRandomName = () => { 
-    const color = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'Black', 'White', 'Pink', 'Purple', 'Silver', 'Gold'];
-    const object = [
-      'Whale', 'Fish', 'Dog', 'Cat', 'Mouse', 'Sheep', 'Goat', 'Rat', 'Frog', 'Horse', 'Wolf', 'Cow', 'Pig', 'Chicken', 'Tiger', 
-      'Unicorn', 'Dragon', 'Werewolf', 'Vampire', 'Mermaid', 
-      'Spaceship', 'Car', 'Bike', 'Bus', 'Train', 'Ship', 'Boat', 'Shuttle', 'Plane', 'Jet',
-      'King', 'Queen', 'Jester', 'Joker', 'Ace', 'Crown', 'Prince', 'Princess', 'Knight', 'Rook', 'Pawn', 'Bishop',
-      'Cheese', 'Pasta', 'Noodles', 'Soup', 'Egg', 'Carrot', 'Apple', 'Banana', 'Crackers', 
-      'Guitar', 'Piano', 'Violin', 'Organ', 'Keyboard',
-      'Square', 'Triangle', 'Circle', 'Rectangle',
-      'Lake', 'Sea', 'Ocean', 'Pond', 'Water', 'Rain', 'Cloud'
-    ];
-    const letters = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
-
-    let studentName;
-    let existsInDatabase;
-    let password = '';
-
-    do {
-        let randomColor = color[Math.floor(Math.random()*color.length)];
-        let randomObject = object[Math.floor(Math.random()*object.length)];
-        let randomNumber = Math.floor(Math.random()*900) + 100;
-        for (let i = 0; i < 20; i++) {
-          password += letters[Math.floor(Math.random() * letters.length)];
-        }
-
-        studentName = randomColor + randomObject + randomNumber;
-
-       /* Not too sure on this aspect
-        try {
-            // const response = await axios.get(`${API_BASE_URL}/auth/register
-            // const response = await acios.get('${API_BASE_URL}/instructors/courses/${courseId}/students)
-            // const response = await axios.get(`${API_BASE_URL}/${studentName}`);
-
-            existsInDatabase = response.data.exists;
-        } catch (error) {
-            console.error("Error checking if student name exists:", error);
-            existsInDatabase = false; // Assuming it doesn't exist if there's an error
-            throw error;
-        }
-        */
-
-        // Try doing it entirely locally
-        
-
-    } while (generatedNames.includes(studentName) || existsInDatabase)
-    return {username: studentName, password: password};
-  };
-
-  const addStudents = () => {
+  const addStudents = async () => {
     const num = parseInt(numOfStudents);
     if (!isNaN(num) && num > 0) {
       const newStudents = [];
       for (let i = 0; i < num; i++) {
-        let newStudent = generateRandomName();
-        newStudents.push(newStudent.username + ',' + newStudent.password);
+        try {
+          const response = await axios.post(`/instructors/courses/${courseId}/students`)
+          console.log(response.data);
+          const newStudent = response.data;
+          newStudents.push(`${newStudent.username},${newStudent.password}`);
+        } catch (error) {
+          console.error('Error adding student to course:', error);
+        }
       }
       if(generatedNames === '') {
         setGeneratedNames(newStudents.join('\n'))
