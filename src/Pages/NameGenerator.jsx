@@ -11,7 +11,9 @@ const NameGenerator = () => {
 
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
-  const courseId = 123;
+
+  const [courseId, setCourseId] = useState('123456');
+  const [courseTitle, setCourseTitle] = useState('ABC 123');
 
   const addStudents = async () => {
     const num = parseInt(numOfStudents);
@@ -54,17 +56,18 @@ const NameGenerator = () => {
             value={generatedNames} 
             readOnly 
             cols={50} rows={15}
-            >{API_BASE_URL}</textarea>
+            >{API_BASE_URL}
+          </textarea>
         </div>
         <div className="column">
-          <div>
-            <textarea className="number-of-students" 
+          <text>Enter the number of student accounts you wish to generate.</text>
+          <input className="number-of-students"
+            type="number"
             value={numOfStudents}
-            cols={3} rows={1} 
-            typeof="number" 
+            min={1}
+            max={500} // TODO get actual max
             onChange={(e) => setNumOfStudents(e.target.value)}
-            ></textarea>
-          </div>
+          ></input>
           <div className="button-container">
             <button className="generate-button" onClick={addStudents}>Generate Students</button>
           </div>
