@@ -51,7 +51,7 @@ const LeaderboardComponent = ({ leaders, userType }) => {
         </table>
         {!isInstructor && (
           <div className="student-info">
-            <p>My Position: 6</p>
+            <p></p>
           </div>
         )}
       </div>
