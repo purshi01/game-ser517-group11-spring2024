@@ -1,7 +1,12 @@
+import PageBackGround from "../components/common/PageBackGround";
+import "../styles/InstructorHomePage.css";
 import React, { useState } from 'react';
 
 const ShoppingCart = () => {
   const [cart, setCart] = useState([]);
+  const totalAmount = getTotalCartAmount();
+
+  const navigate = useNavigate();
 
   const addItemToCart = (item) => {
     const updatedCart = [...cart];
@@ -24,25 +29,35 @@ const ShoppingCart = () => {
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <div>
-      <h2>Shopping Cart</h2>
-      <ul>
-        {cart.map((item) => (
-          <li key={item.id}>
-            {item.name} - Quantity: {item.quantity} - ${item.price * item.quantity}
-            <button onClick={() => removeItemFromCart(item.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
+    <div className="shopping-cart">
       <div>
-        Total: ${cartTotal}
+        <h1>Your Cart Items</h1>
       </div>
-      <div>
-        {/* Example of adding items to cart */}
-        <button onClick={() => addItemToCart({ id: 1, name: 'Product 1', price: 10 })}>Add Product 1</button>
-        <button onClick={() => addItemToCart({ id: 2, name: 'Product 2', price: 20 })}>Add Product 2</button>
-        {/* Add more buttons for other products */}
+      <div className="cart">
+        {PRODUCTS.map((product) => {
+          if (cartItems[product.id] !== 0) {
+            return <CartItem data={product} />;
+          }
+        })}
       </div>
+
+      {totalAmount > 0 ? (
+        <div className="checkout">
+          <p> Subtotal: ${totalAmount} </p>
+          <button onClick={() => navigate("/")}> Continue Shopping </button>
+          <button
+            onClick={() => {
+              checkout();
+              navigate("/checkout");
+            }}
+          >
+            {" "}
+            Checkout{" "}
+          </button>
+        </div>
+      ) : (
+        <h1> Your Shopping Cart is Empty</h1>
+      )}
     </div>
   );
 };
