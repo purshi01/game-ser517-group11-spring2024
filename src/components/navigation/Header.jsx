@@ -5,7 +5,7 @@ import { Link, Route } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useAuth } from "../../context/AuthContext";
 import goldCoinIcon from "../../assets/dollar.jpg";
-import Announcements from "../../Pages/Announcements.jsx";
+import Announcements from "../../Pages/ShoppingCart.jsx";
 const Header = () => {
   const { isLoggedIn, userType, remainingBucks } = useAuth();
   return (
