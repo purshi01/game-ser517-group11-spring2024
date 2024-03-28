@@ -9,3 +9,6 @@ package-lock.json
 .project
 
 .vscode/
+
+#something with how Tahir has vscode setup is generating these, temp fix
+src/components/layout/

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "../styles/CourseCreator.css"
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -11,24 +12,35 @@ const CourseCreator = () => {
 
   const [courseTitle, setCourseTitle] = useState('');
   const [courseName, setCourseName] = useState('');
-  const [courseID, setCourseID] = useState('');
+
   const [validTitle, setValidTitle] = useState(true);
   const [validName, setValidName] = useState(true);
-  const [validID, setValidId] = useState(true);
+  
+  const navigate = useNavigate();
 
-  const handleNextButtonClick = (e) => {
+  const handleNextButtonClick = async () => {
     const titlePattern1 = /^[A-Za-z]{3}\s\d{3}$/;
     const titlePattern2 = /^[A-Za-z]{3}\d{3}$/;
-    const idPattern = /^\d{5}$/;
 
     setValidTitle(courseTitle.match(titlePattern1) || courseTitle.match(titlePattern2));
     setValidName(courseName.trim() !== '');
-    setValidId(courseID.match(idPattern));
 
-    if (validTitle && validName && validID) {
-      // Make in backend here, wait for response
-      console.log("Fields are valid, moving to student creation.")
-    } else {
+    if (validTitle && validName) {
+      try {
+        const response = await axios.post(`${API_BASE_URL}/courses`, {
+          title: courseTitle,
+          name: courseName,
+          //instructor: instructor_id // this comes from the login token thing i belive?
+        });
+        console.log(response);
+        if (response.status === 201) {
+          console.log("Fields are valid, moving to student creation.");
+          const courseId = response.data.course_id;
+          navigate(`/instructors/courses/${courseId}/students`);
+        } 
+      } catch (error) {
+        console.error("Error adding course:", error.response.data);
+      }
       console.log("Invalid field(s)")
     }
   }
@@ -72,22 +84,6 @@ const CourseCreator = () => {
           </div>
         </div>
 
-        <div className="section">
-          <label>Course ID: </label>
-          <input
-            type="text"
-            value={courseID}
-            onChange={(e) => setCourseID(e.target.value)}
-            placeholder="12345"
-            style={{ 
-              border: validID ? '1px solid black' : '1px solid red',
-              width: 75,
-            }}
-          ></input>
-          <div>
-                {!validID && <span style={{ color: 'red' }}>Course ID is the 5 digit number to identify courses in the Course Catalog. <br></br>Please enter a valid ID.</span>}
-          </div>
-        </div>
       </div>
       <div>
         <button className="next-button" onClick={handleNextButtonClick}>
