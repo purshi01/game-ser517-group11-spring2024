@@ -52,6 +52,7 @@ const CourseCreator = () => {
           //instructor: instructor_id, // this comes from the login token thing i beleive?
           semester: semester,
           year: year,
+          description: courseDescription,
         });
         console.log(response);
         if (response.status === 201) {
