@@ -71,11 +71,11 @@ function App() {
             }
           />
           <Route
-            path="/NameGenerator"
+            path="/name-generator"
             element={<NameGenerator />}
           />
           <Route
-            path="CourseCreation"
+            path="/course-creator"
             element={<CourseCreator />}
           />
           {/* Define additional routes as needed */}
