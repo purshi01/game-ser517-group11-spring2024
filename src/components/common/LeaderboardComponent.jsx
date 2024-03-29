@@ -1,21 +1,40 @@
-// LeaderboardComponent.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/LeaderboardComponent.css";
 
-const LeaderboardComponent = ({ leaders, userType }) => {
+const LeaderboardComponent = ({ leaders, onSaveChanges, onAddLeader }) => {
+  const [userType, setUserType] = useState("");
+  const [editableLeaders, setEditableLeaders] = useState(leaders); // Initialize editableLeaders state
+
+  // Effect hook to retrieve userType from localStorage
+  useEffect(() => {
+    const storedUserType = localStorage.getItem("userType");
+    setUserType(storedUserType);
+  }, []);
+
+  // Update editableLeaders whenever the leaders prop changes
+  useEffect(() => {
+    setEditableLeaders(leaders);
+  }, [leaders]);
+
+  // Determine if the user is an instructor
   const isInstructor = userType === "instructor";
+
+  // Function to handle changes to leader inputs
+  const handleLeaderChange = (id, field, value) => {
+    const updatedLeaders = editableLeaders.map((leader) =>
+      leader.id === id ? { ...leader, [field]: value } : leader
+    );
+    setEditableLeaders(updatedLeaders);
+  };
+
+  // Adjusted handleSaveChanges to use the editableLeaders state
+  const handleSaveChanges = () => {
+    onSaveChanges(editableLeaders);
+  };
 
   return (
     <div className="leaderboard">
       <div className="leaderboard-content">
-        {isInstructor && (
-          <div className="crud-operations">
-            {/* CRUD buttons */}
-            <button>Add Leader</button>
-            <button>Edit Leader</button>
-            <button>Delete Leader</button>
-          </div>
-        )}
         <div className="today-leader">
           {leaders.length > 0 && (
             <>
@@ -32,19 +51,17 @@ const LeaderboardComponent = ({ leaders, userType }) => {
           )}
         </div>
         <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+            </tr>
+          </thead>
           <tbody>
-            {leaders.map((leader, index) => (
-              <tr key={leader.id}>
+            {editableLeaders.map((leader, index) => (
+              <tr key={index}>
                 <td>{leader.name}</td>
-                <td>{leader.lastName}</td>
                 <td>{leader.score}</td>
-                {isInstructor && (
-                  <td>
-                    {/* Edit and delete actions */}
-                    <button>Edit</button>
-                    <button>Delete</button>
-                  </td>
-                )}
               </tr>
             ))}
           </tbody>
