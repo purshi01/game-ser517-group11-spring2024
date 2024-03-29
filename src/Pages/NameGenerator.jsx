@@ -60,12 +60,11 @@ const NameGenerator = () => {
           </textarea>
         </div>
         <div className="column">
-          <label>Enter the number of student accounts you wish to generate.</label>
           <input className="number-of-students"
             type="number"
             value={numOfStudents}
             min={1}
-            max={500} // TODO get actual
+            max={500} // TODO get actual max
             onChange={(e) => setNumOfStudents(e.target.value)}
           ></input>
           <div className="button-container">
