@@ -121,7 +121,7 @@ const StudentDashboard = () => {
   useEffect(() => {
     setLeaderboardData(dummyLeaders);
     setTaskListData(dummyTasks);
-  }); // This effect only depends on selectedCourse
+  }, []); // This effect only depends on selectedCourse
 
   return (
     <div className="student-dashboard">
@@ -137,7 +137,7 @@ const StudentDashboard = () => {
         </div>
         <div className="leaderboard">
           <h2>Leaderboard</h2>
-          <LeaderboardComponent leaders={leaderboardData} userType="student" />
+          <LeaderboardComponent leaders={leaderboardData} />
         </div>
         <div className="completed-tasks">
           <TasksComponent tasks={taskListData} />
