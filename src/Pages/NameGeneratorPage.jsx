@@ -13,7 +13,7 @@ const NameGenerator = () => {
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
 
-  const {courseId, courseTitle} = useParams('12345', "ABC 123");
+  const {courseId, courseTitle} = useParams();
 
   const addStudents = async () => {
     const num = parseInt(numOfStudents);
