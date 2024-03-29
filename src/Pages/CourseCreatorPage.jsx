@@ -8,10 +8,29 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const CourseCreator = () => {
   useEffect(() => {
     document.title = "Add New Course"
+    const getCurrentSemester = () => {
+      const currentMonth = new Date().getMonth() + 1; // Jan = 0
+      if (1 <= currentMonth && currentMonth <= 4) { // Jan - April
+        setSemester("Spring");
+      } else if (5 <= currentMonth && currentMonth <= 7) { // May - July
+        setSemester("Summer");
+      } else { // August - December
+        setSemester("Fall");
+      }
+    };
+    const getYear = () => {
+      setYear(new Date().getFullYear().toString());
+    }
+    getCurrentSemester();
+    getYear();
   }, []);
+
 
   const [courseTitle, setCourseTitle] = useState('');
   const [courseName, setCourseName] = useState('');
+  const [courseDescription, setCourseDescription] = useState('');
+  const [semester, setSemester] = useState('');
+  const [year, setYear] = useState('');
 
   const [validTitle, setValidTitle] = useState(true);
   const [validName, setValidName] = useState(true);
@@ -30,7 +49,9 @@ const CourseCreator = () => {
         const response = await axios.post(`${API_BASE_URL}/courses`, {
           title: courseTitle,
           name: courseName,
-          //instructor: instructor_id // this comes from the login token thing i belive?
+          //instructor: instructor_id, // this comes from the login token thing i beleive?
+          semester: semester,
+          year: year,
         });
         console.log(response);
         if (response.status === 201) {
@@ -81,6 +102,28 @@ const CourseCreator = () => {
           <div>
                 {!validName && <span style={{ color: 'red' }}>Course name cannot be left blank.</span>}
           </div>
+        </div>
+
+        <div className="section">
+          <label> Semester: </label>
+          <select value={semester} onChange={(e) => setSemester(e.target.value)}>          
+            <option value="Fall">Fall</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+          </select>
+          <select value={year} onChange={(e) => setYear(e.target.value)}>
+            <option key={year-1} value={year-1}>{year-1}</option>
+            <option key={year} value={year}>{year}</option>
+            <option key={year-1+2} value={year-1+2}>{year-1+2}</option>
+          </select>
+        </div>
+
+        <div className="section">
+          <textarea value={courseDescription} onChange={(e) => setCourseDescription(e.target.value)}
+            placeholder="An optional description of the course if you wish."
+            className="description"
+            rows={5}
+          ></textarea>
         </div>
 
       </div>
