@@ -24,7 +24,7 @@ const CourseCreator = () => {
 
     setValidTitle(courseTitle.match(titlePattern1) || courseTitle.match(titlePattern2));
     setValidName(courseName.trim() !== '');
-
+ 
     if (validTitle && validName) {
       try {
         const response = await axios.post(`${API_BASE_URL}/courses`, {
@@ -41,7 +41,6 @@ const CourseCreator = () => {
       } catch (error) {
         console.error("Error adding course:", error.response.data);
       }
-      console.log("Invalid field(s)")
     }
   }
 
