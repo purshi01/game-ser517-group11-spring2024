@@ -4,16 +4,13 @@ import React, { useState } from 'react';
 
 const ShoppingCart = () => {
   const [cart, setCart] = useState([]);
-  const totalAmount = getTotalCartAmount();
-
-  const navigate = useNavigate();
 
   const addItemToCart = (item) => {
     const updatedCart = [...cart];
-    const existingItemIndex = updatedCart.findIndex((cartItem) => cartItem.id === item.id);
+    const existingItem = updatedCart.find((cartItem) => cartItem.id === item.id);
 
-    if (existingItemIndex !== -1) {
-      updatedCart[existingItemIndex].quantity += 1;
+    if (existingItem) {
+      existingItem.quantity += 1;
     } else {
       updatedCart.push({ ...item, quantity: 1 });
     }
@@ -26,38 +23,42 @@ const ShoppingCart = () => {
     setCart(updatedCart);
   };
 
+  const updateQuantity = (itemId, newQuantity) => {
+    const updatedCart = cart.map((item) => {
+      if (item.id === itemId) {
+        item.quantity = newQuantity;
+      }
+      return item;
+    });
+    setCart(updatedCart);
+  };
+
   const cartTotal = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
     <div className="shopping-cart">
+      <h2>Shopping Cart</h2>
+      <ul>
+        {cart.map((item) => (
+          <li key={item.id}>
+            <span>{item.name} - ${item.price}</span>
+            <div>
+              <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+              <span>{item.quantity}</span>
+              <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+              <button onClick={() => removeItemFromCart(item.id)}>Remove</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div>Total: ${cartTotal}</div>
+      <button onClick={() => setCart([])}>Clear Cart</button>
+      {/* Example of adding items to cart */}
       <div>
-        <h1>Your Cart Items</h1>
+        <button onClick={() => addItemToCart({ id: 1, name: 'Product 1', price: 10 })}>Add Product 1</button>
+        <button onClick={() => addItemToCart({ id: 2, name: 'Product 2', price: 20 })}>Add Product 2</button>
+        {/* Add more buttons for other products */}
       </div>
-      <div className="cart">
-        {PRODUCTS.map((product) => {
-          if (cartItems[product.id] !== 0) {
-            return <CartItem data={product} />;
-          }
-        })}
-      </div>
-
-      {totalAmount > 0 ? (
-        <div className="checkout">
-          <p> Subtotal: ${totalAmount} </p>
-          <button onClick={() => navigate("/")}> Continue Shopping </button>
-          <button
-            onClick={() => {
-              checkout();
-              navigate("/checkout");
-            }}
-          >
-            {" "}
-            Checkout{" "}
-          </button>
-        </div>
-      ) : (
-        <h1> Your Shopping Cart is Empty</h1>
-      )}
     </div>
   );
 };
