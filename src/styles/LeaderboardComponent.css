@@ -31,7 +31,11 @@ table tr:nth-child(odd) {
 table td {
   padding: 8px;
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
+}
+table th {
+  size: 20px;
+  text-align: center;
 }
 
 .remaining-bucks {
