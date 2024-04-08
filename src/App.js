@@ -18,6 +18,7 @@ import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import NameGenerator from "./Pages/NameGeneratorPage";
 import CourseCreator from "./Pages/CourseCreatorPage";
+import TaskView from "./Pages/TaskViewPage";
 
 function App() {
   const { isLoggedIn, userType } = useAuth();
@@ -77,6 +78,10 @@ function App() {
           <Route
             path="/course-creator"
             element={<CourseCreator />}
+          />
+          <Route
+            path="/task"
+            element={<TaskView />}
           />
           {/* Define additional routes as needed */}
         </Routes>
