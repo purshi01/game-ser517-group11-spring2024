@@ -20,7 +20,7 @@ const TasksComponent = ({ tasks }) => {
       <div className="task-block">
         <h2>Incomplete Tasks</h2>
         <ul>
-          {complete.map(task => (
+          {incomplete.map(task => (
             <li key={task.id} className="incomplete">
               <span className="task-title">{task.title}</span>
             </li>

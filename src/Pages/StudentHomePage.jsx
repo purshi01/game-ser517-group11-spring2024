@@ -139,7 +139,7 @@ const StudentDashboard = () => {
           <h2>Leaderboard</h2>
           <LeaderboardComponent leaders={leaderboardData} />
         </div>
-        <div className="completed-tasks">
+        <div className="tasks">
           <TasksComponent tasks={taskListData} />
         </div>
       </div>

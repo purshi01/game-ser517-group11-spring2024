@@ -374,7 +374,7 @@ const InstructorDashboard = () => {
               onAddLeader={addNewLeader}
             />
           </div>
-          <div className="completed-tasks">
+          <div className="tasks">
             <TasksComponent tasks={taskListData} />
           </div>
         </div>

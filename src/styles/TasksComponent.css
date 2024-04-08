@@ -1,6 +1,6 @@
 /* TasksComponent.css */
 
-.completed-task {
+.tasks {
   background-color: #f4f4f4; /* Light grey background */
   border-radius: 8px;
   padding: 20px;
@@ -32,11 +32,11 @@ li {
   align-items: center;
 }
 
-.completed-tasks ul li.completed {
+.tasks ul li.completed {
   background-color: #e0ffe0; /* Light green background for completed tasks */
 }
 
-.completed-tasks ul li.incomplete {
+.tasks ul li.incomplete {
   background-color: #ffe0e0; /* Light red background for pending tasks */
 }
 
