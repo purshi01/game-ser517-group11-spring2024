@@ -91,6 +91,7 @@ const TaskView = () => {
                         */
                        alert("Grades successfully added");
                         navigate(`/instructor-dashboard`);
+                        
                       } catch (error) {
                         console.error('Error applying grades to course:', error);
                       }

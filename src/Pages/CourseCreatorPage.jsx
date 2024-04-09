@@ -45,6 +45,8 @@ const CourseCreator = () => {
     setValidName(courseName.trim() !== '');
  
     if (validTitle && validName) {
+      let id = 3;
+      navigate(`/name-generator`, {state: {id, courseTitle}});
       try {
         const response = await axios.post(`${API_BASE_URL}/courses`, {
           title: courseTitle,
@@ -58,7 +60,7 @@ const CourseCreator = () => {
         if (response.status === 201) {
           console.log("Fields are valid, moving to student creation.");
           const courseId = response.data.course_id;
-          navigate(`/instructors/courses/${courseId}/students`, {state: {courseId, courseTitle}});
+          navigate(`/name-generator`, {state: {courseId, courseTitle}});
         } 
       } catch (error) {
         console.error("Error adding course:", error.response.data);

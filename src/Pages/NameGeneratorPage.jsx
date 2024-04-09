@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "../styles/NameGenerator.css"
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -14,6 +15,7 @@ const NameGenerator = () => {
   const [numOfStudents, setNumOfStudents] = useState('1');
 
   const {courseId, courseTitle} = useParams();
+  const navigate = useNavigate();
 
   const addStudents = async () => {
     const num = parseInt(numOfStudents);
@@ -35,7 +37,6 @@ const NameGenerator = () => {
         setGeneratedNames(prevNames => prevNames + '\n' + newStudents.join('\n'));
       }
     }
-    alert(`Students added to ${courseTitle}`)
   };
 
   const downloadCSV = () => {
@@ -46,6 +47,11 @@ const NameGenerator = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  const toDashboard = () => {
+    // Need this as a method rather than directly there since it was immediately going
+    navigate(`/instructor-dashboard`);
   }
 
   return (
@@ -73,6 +79,9 @@ const NameGenerator = () => {
           </div>
           <div className="button-container">
             <button className="download-button" onClick={downloadCSV}>Download as a .csv file</button>
+          </div>
+          <div className="button-container">
+            <button className="return-button" onClick={toDashboard}>Return to Dashboard</button>
           </div>
         </div>
       </div>
