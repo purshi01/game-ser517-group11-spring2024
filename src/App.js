@@ -73,16 +73,28 @@ function App() {
           />
           <Route
             path="/name-generator"
-            element={<NameGenerator />}
+            element={
+              isLoggedIn && userType === "instructor" ? (
+                <NameGenerator />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
           />
           <Route
             path="/course-creator"
-            element={<CourseCreator />}
-          />
+            element={
+              isLoggedIn && userType === "instructor" ? (
+                <CourseCreator />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }/>
           <Route
-            path="/task"
-            element={<TaskView />}
-          />
+            path="/grade-task"
+            element={ <TaskView />}/>
+            
+
           {/* Define additional routes as needed */}
         </Routes>
         <Footer />

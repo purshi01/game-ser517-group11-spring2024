@@ -7,15 +7,14 @@ import { useNavigate } from "react-router-dom";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const NameGenerator = () => {
+  const [generatedNames, setGeneratedNames] = useState('');
+  const [numOfStudents, setNumOfStudents] = useState('1');
+  const {courseId, courseTitle} = useParams('');
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Add Student Accounts"
   }, []);
-
-  const [generatedNames, setGeneratedNames] = useState('');
-  const [numOfStudents, setNumOfStudents] = useState('1');
-
-  const {courseId, courseTitle} = useParams('');
-  const navigate = useNavigate();
 
   const addStudents = async () => {
     const num = parseInt(numOfStudents);

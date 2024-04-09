@@ -11,11 +11,12 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 const TaskView = () => {
-  useEffect(() => {
-    // document.title = `${taskId}`
-    document.title = "Task View"
-    setTaskListData(dummyTasks);
-  }, []);
+  const {courseId, taskId} = useParams();
+  const [taskListData, setTaskListData] = useState([]);
+  const [file, setFile] = useState(null);
+  const [grades, setGrades] = useState([]);
+  const [taskName, setTaskName] = useState('');
+  const navigate = useNavigate();
 
   const dummyTasks = [
     { id: 1, courseId: 1, title: "Design Patterns Assignment", completed: true },
@@ -25,13 +26,17 @@ const TaskView = () => {
     { id: 5, courseId: 4, title: "Binary Trees Exercise", completed: true },
     // Add more tasks as needed
   ];
-  
-  const {courseId, taskId} = useParams();
-  const [taskListData, setTaskListData] = useState([]);
-  const [file, setFile] = useState(null);
-  const [grades, setGrades] = useState([]);
-  const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = `Grades for ${taskName}`
+    setTaskListData(dummyTasks);
+    getTaskName();
+  }, []);
+
+  /*
+    Formats the grades when a file is added to be parsed.
+    May need to split into csv and excel versions.
+  */
   const setFormatedGrades = (data) => {
     let formatedGrades = "";
     for (let i = 0; i < data.length; i += 1) {
@@ -40,6 +45,23 @@ const TaskView = () => {
     setGrades(formatedGrades);
   }
 
+  const getTaskName = async () => {
+    try {
+      const response = await axios.get(`/courses/${courseId}/${taskId}`);
+      console.log(response)
+      if (response.status === 200) {
+        setTaskName(taskName);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  /*
+    This should handle changing the file type, and when a file is added,
+    it should parse the file and display it through setFormatedGrades.
+
+    *** Set formated grades may need excel version and csv version ***
+  */
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -52,10 +74,10 @@ const TaskView = () => {
                 setFormatedGrades(results.data)
             },
           });
-      } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+      } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) { // TODO FIXME
         setFile(file);
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = (e) => { // This isnt triggering
           console.log('Excel file loaded');  
         };
         reader.onerror = (error) => {
@@ -84,7 +106,7 @@ const TaskView = () => {
                         const payload1 = {
                           username: username
                         }
-                        const response1 = await axios.get(`/students`, payload1) // Not sure here, need to send database username and get student id
+                        const response1 = await axios.get(`/students`, payload1)
                         console.log(response1.data);
                         if (response1.status === 201) {
                           const payload2 = {
@@ -119,10 +141,10 @@ const TaskView = () => {
         alert('Please select a .csv, .xls, or .xlsx file.');
     }
   };
-
+  // , .xlsx, .xls
   return (
     <div className="container">
-      <h1>Task Name should be Here</h1>
+      <h1>Grading {taskName}</h1>
       <div className="columns">
         <div className="column">
             <div className="tasks">
@@ -130,7 +152,7 @@ const TaskView = () => {
             </div>
         </div>
         <div className="column">
-            <input type="file" accept = ".csv, .xlsx, .xls" onChange={handleFileChange} />
+            <input type="file" accept = ".csv" onChange={handleFileChange} />
             <button onClick={handleUpload}>Upload Grades</button>
         </div>
         <div className="column">

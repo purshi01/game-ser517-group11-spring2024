@@ -6,6 +6,15 @@ import { useNavigate } from "react-router-dom";
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const CourseCreator = () => {
+  const [courseTitle, setCourseTitle] = useState('');
+  const [courseName, setCourseName] = useState('');
+  const [courseDescription, setCourseDescription] = useState('');
+  const [semester, setSemester] = useState('');
+  const [year, setYear] = useState('');
+  const [validTitle, setValidTitle] = useState(true);
+  const [validName, setValidName] = useState(true);
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.title = "Add New Course"
     const getCurrentSemester = () => {
@@ -24,18 +33,6 @@ const CourseCreator = () => {
     getCurrentSemester();
     getYear();
   }, []);
-
-
-  const [courseTitle, setCourseTitle] = useState('');
-  const [courseName, setCourseName] = useState('');
-  const [courseDescription, setCourseDescription] = useState('');
-  const [semester, setSemester] = useState('');
-  const [year, setYear] = useState('');
-
-  const [validTitle, setValidTitle] = useState(true);
-  const [validName, setValidName] = useState(true);
-  
-  const navigate = useNavigate();
 
   const handleNextButtonClick = async () => {
     const titlePattern1 = /^[A-Za-z]{3}\s\d{3}$/;
