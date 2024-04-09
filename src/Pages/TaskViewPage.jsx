@@ -86,14 +86,24 @@ const TaskView = () => {
                         }
                         const response1 = await axios.get(`/students`, payload1) // Not sure here, need to send database username and get student id
                         console.log(response1.data);
-                        const payload2 = {
-                            studentId: response1.data.student_id,
-                            points: score,
+                        if (response1.status === 201) {
+                          const payload2 = {
+                              studentId: response1.data.student_id,
+                              points: score,
+                          }
+                          const response2 = await axios.post(`/courses/${courseId}/tasks/${taskId}/assign`, payload2)
+                          console.log(response2);
+                          if (response2.status === 200) {
+                            alert("Grades successfully added");
+                            navigate(`/instructor-dashboard`);
+                          } else {
+                            alert("An unexpected error has occured.")
+                          }
+                        } else if (response1.status === 404) {
+                          alert(`Student ${username} not found. Please ensure username is correct.`)
+                        } else {
+                          alert("An unexpected error has occured.")
                         }
-                        const response2 = await axios.post(`/courses/${courseId}/tasks/${taskId}/assign`, payload2)
-                        console.log(response2);
-                        alert("Grades successfully added");
-                        navigate(`/instructor-dashboard`);
                         
                       } catch (error) {
                         console.error('Error applying grades to course:', error);
