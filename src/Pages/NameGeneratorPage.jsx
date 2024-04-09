@@ -14,7 +14,7 @@ const NameGenerator = () => {
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
 
-  const {courseId, courseTitle} = useParams();
+  const {courseId, courseTitle} = useParams('');
   const navigate = useNavigate();
 
   const addStudents = async () => {
@@ -53,10 +53,9 @@ const NameGenerator = () => {
     // Need this as a method rather than directly there since it was immediately going
     navigate(`/instructor-dashboard`);
   }
-
   return (
     <div className="container">
-      <h1>Generate Student Accounts</h1>
+      <h1>Generate Student Accounts for {courseTitle}</h1>
       <div className="columns">
         <div className="column">
           <textarea className="generated-names" 

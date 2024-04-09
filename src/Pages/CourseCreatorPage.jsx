@@ -45,8 +45,6 @@ const CourseCreator = () => {
     setValidName(courseName.trim() !== '');
  
     if (validTitle && validName) {
-      let id = 3;
-      navigate(`/name-generator`, {state: {id, courseTitle}});
       try {
         const response = await axios.post(`${API_BASE_URL}/courses`, {
           title: courseTitle,
