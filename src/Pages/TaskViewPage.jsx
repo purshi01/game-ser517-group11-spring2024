@@ -87,7 +87,7 @@ const TaskView = () => {
                         const response1 = await axios.get(`/students`, payload1) // Not sure here, need to send database username and get student id
                         console.log(response1.data);
                         const payload2 = {
-                            studentId: response1.data.studentId,
+                            studentId: response1.data.student_id,
                             points: score,
                         }
                         const response2 = await axios.post(`/courses/${courseId}/tasks/${taskId}/assign`, payload2)
