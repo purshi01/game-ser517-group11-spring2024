@@ -35,6 +35,7 @@ const NameGenerator = () => {
         setGeneratedNames(prevNames => prevNames + '\n' + newStudents.join('\n'));
       }
     }
+    alert(`Students added to ${courseTitle}`)
   };
 
   const downloadCSV = () => {
@@ -56,7 +57,7 @@ const NameGenerator = () => {
             value={generatedNames} 
             readOnly 
             cols={50} rows={15}
-            >{API_BASE_URL}
+            >
           </textarea>
         </div>
         <div className="column">

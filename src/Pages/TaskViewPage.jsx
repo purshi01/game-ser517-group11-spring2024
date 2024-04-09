@@ -4,23 +4,21 @@ import "../styles/TaskView.css"
 import { useParams } from "react-router-dom";
 import TasksComponent from "../components/common/TasksComponent";
 import Papa from "papaparse";
+import * as XLSX from 'xlsx';
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 
 const TaskView = () => {
   useEffect(() => {
-    document.title = ""
+    // document.title = `${taskId}`
+    document.title = "Task View"
     setTaskListData(dummyTasks);
   }, []);
 
   const dummyTasks = [
-    {
-      id: 1,
-      courseId: 1,
-      title: "Design Patterns Assignment",
-      completed: true,
-    },
+    { id: 1, courseId: 1, title: "Design Patterns Assignment", completed: true },
     { id: 2, courseId: 1, title: "UML Diagrams Homework", completed: false },
     { id: 3, courseId: 2, title: "Agile Methodologies Quiz", completed: true },
     { id: 4, courseId: 3, title: "Normalization Lab", completed: false },
@@ -32,12 +30,37 @@ const TaskView = () => {
   const [taskListData, setTaskListData] = useState([]);
   const [file, setFile] = useState(null);
   const [grades, setGrades] = useState([]);
+  const navigate = useNavigate();
+
+  const setFormatedGrades = (data) => {
+    let formatedGrades = "";
+    for (let i = 0; i < data.length; i += 1) {
+      formatedGrades += data[i].join(", ") + "\n";
+    }
+    setGrades(formatedGrades);
+  }
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      if (file.name.endsWith('.csv') || file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+      if (file.name.endsWith('.csv')) {
         setFile(file);
+        Papa.parse(file, {
+            skipEmptyLines:true,
+            complete: function (results) {
+                console.log(results.data);
+                setFormatedGrades(results.data)
+            },
+          });
+      } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+        setFile(file);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          console.log('Excel file loaded');  
+        };
+        reader.onerror = (error) => {
+          console.error('Error reading file:', error);
+        };
       } else {
         alert('File must be a CSV or Excel file (.csv, .xls, or .xlsx)');
       }
@@ -57,18 +80,19 @@ const TaskView = () => {
                     try {
                         const username = submission[0];
                         const score = submission[1];
-        
-                        const response1 = await axios.get() // Not sure here, need to send database username and get student id
+                      /*
+                        const response1 = await axios.get(``, username) // Not sure here, need to send database username and get student id
                         console.log(response1.data);
-                        const id = response1.data.studentId;
-                        const data = {
-                            username: username,
+                        const payload = {
+                            studentId: response1.data.studentId,
+                            points: score,
                         }
-                        const response = await axios.post(`/courses/${courseId}/tasks/${taskId}/assign`, )
-                        
-
+                        const response2 = await axios.post(`/courses/${courseId}/tasks/${taskId}/assign`, payload)
+                        */
+                       alert("Grades successfully added");
+                        navigate(`/instructor-dashboard`);
                       } catch (error) {
-                        console.error('Error adding student to course:', error);
+                        console.error('Error applying grades to course:', error);
                       }
                 });
             },
@@ -100,9 +124,9 @@ const TaskView = () => {
             <div className="column">
             <textarea className="generated-names" 
             value={grades} 
-            readOnly 
+            readOnly
             cols={50} rows={15}
-            >{API_BASE_URL}
+            >
           </textarea>
         </div>
         </div>
