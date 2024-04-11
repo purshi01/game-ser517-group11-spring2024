@@ -19,6 +19,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import NameGenerator from "./Pages/NameGeneratorPage";
 import CourseCreator from "./Pages/CourseCreatorPage";
 import TaskView from "./Pages/TaskViewPage";
+import TaskCreator from "./Pages/TaskCreatorPage";
 
 function App() {
   const { isLoggedIn, userType } = useAuth();
@@ -72,6 +73,10 @@ function App() {
             }
           />
           <Route
+          path="/temp-instructor-dashboard"
+          element={ <InstructorDashboard />}
+        />
+          <Route
             path="/name-generator"
             element={
               isLoggedIn && userType === "instructor" ? (
@@ -93,7 +98,10 @@ function App() {
           <Route
             path="/grade-task"
             element={ <TaskView />}/>
-            
+          <Route
+            path="task-creation"
+            element={<TaskCreator />}
+          />  
 
           {/* Define additional routes as needed */}
         </Routes>

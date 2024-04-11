@@ -5,6 +5,7 @@ import TasksComponent from "../components/common/TasksComponent"; // Import the 
 import "../styles/InstructorHomePage.css";
 import "../styles/StudentHomePage.css";
 import StoreItem from "../components/common/StoreItem";
+import { useNavigate } from "react-router-dom";
 
 const InstructorDashboard = () => {
   // Dummy course data - replace this with actual data, perhaps fetched from an API
@@ -189,6 +190,7 @@ const InstructorDashboard = () => {
     quantity: "",
     imageUrl: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLeaderboardData(dummyLeaders);
@@ -296,7 +298,9 @@ const InstructorDashboard = () => {
     setLeaderboardData([...leaderboardData, ...newEntries]);
     setStudentCount(""); // Reset student count
   };
-
+  const addNewTask = () => {
+    navigate(`/task-creation`);
+  }
   return (
     <div className="instructor-dashboard">
       <div className="dashboard-grid-1">
@@ -376,6 +380,7 @@ const InstructorDashboard = () => {
           </div>
           <div className="tasks">
             <TasksComponent tasks={taskListData} />
+            <button className="add-task-button" onClick={addNewTask}>Add New Task</button>
           </div>
         </div>
       )}

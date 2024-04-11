@@ -50,6 +50,7 @@ const TaskView = () => {
       const response = await axios.get(`/courses/${courseId}/${taskId}`);
       console.log(response)
       if (response.status === 200) {
+        taskName = response.data.task_name;
         setTaskName(taskName);
       }
     } catch (e) {
@@ -126,7 +127,6 @@ const TaskView = () => {
                         } else {
                           alert("An unexpected error has occured.")
                         }
-                        
                       } catch (error) {
                         console.error('Error applying grades to course:', error);
                       }
@@ -141,6 +141,12 @@ const TaskView = () => {
         alert('Please select a .csv, .xls, or .xlsx file.');
     }
   };
+  
+  const toDashboard = () => {
+    // Need this as a method rather than directly there since it was immediately going
+    navigate(`/instructor-dashboard`);
+  }
+
   // , .xlsx, .xls
   return (
     <div className="container">
@@ -154,6 +160,9 @@ const TaskView = () => {
         <div className="column">
             <input type="file" accept = ".csv" onChange={handleFileChange} />
             <button onClick={handleUpload}>Upload Grades</button>
+            <div className="button-container">
+              <button className="return-button" onClick={toDashboard}>Return to Dashboard</button>
+            </div>
         </div>
         <div className="column">
             <h2>This column is should show all grades in the current task</h2>
