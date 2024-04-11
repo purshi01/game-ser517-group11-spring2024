@@ -5,9 +5,16 @@ import { Link, Route } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useAuth } from "../../context/AuthContext";
 import goldCoinIcon from "../../assets/dollar.jpg";
-import Announcements from "../../Pages/ShoppingCart.jsx";
+//import { useHistory } from 'react-router-dom';
+import shoppingcart from "../../Pages/ShoppingCart.jsx";
 const Header = () => {
   const { isLoggedIn, userType, remainingBucks } = useAuth();
+  //const history = useHistory();
+
+  const handleIconClick = () => {
+    // Use history.push to navigate to a different page
+    //history.push('/shoppingcart');
+  };
   return (
     <header className="site-header">
       <div className="logo">
@@ -20,7 +27,6 @@ const Header = () => {
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/dashboard">Dashboard</a></li>
-        <li><Link to="/announcements">Announcements</Link></li>
         <li><a href="/services">Courses</a></li>
         <li><a href="/account">Account</a></li>
         <li><a href="/email">Inbox</a></li>
@@ -39,7 +45,9 @@ const Header = () => {
             <span>Remaining Bucks: {remainingBucks}</span>
           </div>
         )}
-        <i className="bi bi-cart3"></i> {/* Bootstrap cart icon */}
+        <Link to="/shoppingcart">
+          <i className="bi bi-cart3"></i>
+        </Link>
       </div>
     </header>
   );

@@ -13,7 +13,7 @@ import SignInPage from "./Pages/SignInPage";
 import SignUpPage from "./Pages/SignUpPage";
 import StudentDashboard from "./Pages/StudentHomePage";
 import InstructorDashboard from "./Pages/InstructorHomePage";
-import Announcements from "./Pages/ShoppingCart.jsx";
+import ShoppingCart from "./Pages/ShoppingCart.jsx";
 import "./App.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -68,12 +68,12 @@ function App() {
             }
           />
           <Route
-            path="/announcements"
+            path="/shoppingcart"
             element={
               isLoggedIn && userType === "instructor" ? (
-                <Announcements />
+                <ShoppingCart />
               ) : (
-                <Navigate to="/announcements" />
+                <Navigate to="/shoppingcart" />
               )
             }
           />
