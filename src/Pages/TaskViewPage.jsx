@@ -40,13 +40,14 @@ const TaskView = () => {
     Formats the grades when a file is added to be parsed.
     May need to split into csv and excel versions.
   */
-  const setFormatedGrades = (data) => {
-    let formatedGrades = "";
-    for (let i = 0; i < data.length; i += 1) {
-      formatedGrades += data[i].join(", ") + "\n";
-    }
-    setGrades(formatedGrades);
+    const setFormatedGrades = (rawGrades) => {
+      const formattedGrades = rawGrades.map(row => ({
+          username: row.username,
+          grade: row.grade
+      }));
+      setGrades(formattedGrades);
   }
+  
 
   const getTaskName = async () => {
     try {
@@ -74,8 +75,19 @@ const TaskView = () => {
         Papa.parse(file, {
             skipEmptyLines:true,
             complete: function (results) {
-                console.log(results.data);
-                setFormatedGrades(results.data)
+              const headers = results.data[0].map(header => header.toLowerCase());
+              const usernames = headers.indexOf("username");
+              const grades = headers.indexOf("grade");
+              if (usernames === -1 || grades === -1) {
+                alert("Please ensure that usernames have the header 'username' and the scores have the header 'grade'. Headers must be in row 1.")
+              } else {
+                const formattedData = results.data.slice(1) // Exclude header row
+                .map(row => ({
+                    username: row[usernames],
+                    grade: row[grades]
+                }));
+                setFormatedGrades(formattedData);
+              }
             },
           });
       } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) { // TODO FIXME
@@ -168,10 +180,9 @@ const TaskView = () => {
             </div>
         </div>
         <div className="column">
-            <h2>This column is should show all grades in the current task</h2>
             <div className="column">
             <textarea className="generated-names" 
-            value={grades} 
+            value={grades.map(grade => `${grade.username}: ${grade.grade}`).join('\n')}    
             readOnly
             cols={50} rows={15}
             >
