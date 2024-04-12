@@ -27,10 +27,13 @@ const TaskView = () => {
     // Add more tasks as needed
   ];
 
+  
+
   useEffect(() => {
     document.title = `Grades for ${taskName}`
     setTaskListData(dummyTasks);
-    getTaskName();
+    // setTaskListData(TasksComponent.getTasks());
+    getTaskName(courseId);
   }, []);
 
   /*
@@ -53,8 +56,8 @@ const TaskView = () => {
         taskName = response.data.task_name;
         setTaskName(taskName);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error('Error getting task name', error);
     }
   }
   /*

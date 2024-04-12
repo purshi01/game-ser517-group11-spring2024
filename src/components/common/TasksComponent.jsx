@@ -1,10 +1,28 @@
 import React from "react";
 import "../../styles/TasksComponent.css";
+import axios from "axios";
 
 const TasksComponent = ({ tasks }) => {
+  
   const complete = tasks.filter(task => task.completed);
   const incomplete = tasks.filter(task => !task.completed);
 
+  TasksComponent.getTasks = async (courseId) => {
+    console.log('getting tasks');
+    try {
+      const response = await axios.get(`/courses/${courseId}/tasks`);
+      console.log(response);
+      if (response.status === 200) {
+        const data = response.data;
+        const taskList = data.tasks;
+        return taskList;
+      }
+    } catch (error) {
+      console.error("Error getting task name", error);
+    }
+    return null;
+  };
+  
   return (
     <div className="tasks-container">
       <div className="task-block">
@@ -30,5 +48,6 @@ const TasksComponent = ({ tasks }) => {
     </div>
   );
 };
+
 
 export default TasksComponent;
