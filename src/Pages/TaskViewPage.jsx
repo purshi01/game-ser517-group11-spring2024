@@ -100,14 +100,14 @@ const TaskView = () => {
           console.error('Error reading file:', error);
         };
       } else {
-        alert('File must be a CSV or Excel file (.csv, .xls, or .xlsx)');
+        alert('File must be a CSV file (.csv)');
       }
     }
   };
 
   const handleUpload = () => {
     if (file === null) {
-        alert('Please select a .csv, .xls, or .xlsx file.');
+        alert('Please select a CSV file (.csv)');
     } else if (file.name.endsWith('.csv')) {
         console.log("Reading in CSV", file);
         Papa.parse(file, {
@@ -153,7 +153,7 @@ const TaskView = () => {
         console.log("Reading in Excel", file);
 
     } else {
-        alert('Please select a .csv, .xls, or .xlsx file.');
+      alert('Please select a CSV file (.csv)');
     }
   };
   
