@@ -1,26 +1,25 @@
 import React from "react";
-import "../../styles/ShoppingCart.css";
+import "../../styles/ShoppingCartComponent.css";
 
-const ShoppingCartComp = ({ cart }) => {
+const ShoppingCartComponent = ({ courses }) => {
   return (
-    <div className="cart">
+    <div className="shopping-cart">
       <h2>Shopping Cart</h2>
       <ul>
-        {cart.map((item) => (
-          <li key={item.id} className={item.value}>
-            <span className="item-name">{item.name}</span>
-            <span className="item-value">
-              {item.register ? "Done" : "Not Done"}
-            </span>
+        {courses.map((course) => (
+          <li key={course.id}>
+            <span className="course-title">{course.title}</span>
+            <span className="course-price">${course.price}</span>
+            <button className="remove-button">Remove</button>
           </li>
         ))}
       </ul>
-      {/* Add a button component */}
+      <div className="total">
+        Total: ${courses.reduce((total, course) => total + course.price, 0)}
+      </div>
       <button className="checkout-button">Checkout</button>
-      {/* Add an input field component */}
-      <input type="text" placeholder="Enter promo code" className="promo-input" />
     </div>
   );
 };
 
-export default ShoppingCartComp;
+export default ShoppingCartComponent;

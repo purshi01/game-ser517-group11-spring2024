@@ -18,7 +18,7 @@ const SignInPage = () => {
       // const data = await signIn({ username, password });
       // console.log('Sign In successful', data);
       // data.userType = 'student';
-      const data = "instructor";
+      const data = "student";
       // Navigation logic based on user type
       if (data === "student") {
         localStorage.setItem("token", "1213131");
@@ -28,6 +28,7 @@ const SignInPage = () => {
         setRemainingBucks(10);
         navigate("/student-dashboard");
       } else if (data === "instructor") {
+        console.log("Inside instructor function");
         localStorage.setItem("token", "1213131");
         localStorage.setItem("userType", "instructor");
         setIsLoggedIn(true);

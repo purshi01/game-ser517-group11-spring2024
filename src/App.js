@@ -70,7 +70,7 @@ function App() {
           <Route
             path="/shoppingcart"
             element={
-              isLoggedIn && userType === "instructor" ? (
+              isLoggedIn && userType === "student" ? (
                 <ShoppingCart />
               ) : (
                 <Navigate to="/shoppingcart" />
