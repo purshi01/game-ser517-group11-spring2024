@@ -30,10 +30,10 @@ const TaskView = () => {
   
 
   useEffect(() => {
-    document.title = `Grades for ${taskName}`
+    document.title = `Grading ${taskName}`
     setTaskListData(dummyTasks);
     // setTaskListData(TasksComponent.getTasks());
-    getTaskName(courseId);
+    // getTaskName(courseId);
   }, []);
 
   /*
@@ -51,7 +51,7 @@ const TaskView = () => {
 
   const getTaskName = async () => {
     try {
-      const response = await axios.get(`/courses/${courseId}/${taskId}`);
+      const response = await axios.get(`/courses/${courseId}/${taskId}`); // TODO: Update when backend there
       console.log(response)
       if (response.status === 200) {
         taskName = response.data.task_name;
@@ -90,7 +90,7 @@ const TaskView = () => {
               }
             },
           });
-      } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) { // TODO FIXME
+      } else if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) { // TODO: non funacitonal
         setFile(file);
         const reader = new FileReader();
         reader.onload = (e) => { // This isnt triggering
@@ -165,7 +165,6 @@ const TaskView = () => {
   // , .xlsx, .xls
   return (
     <div className="container">
-      <h1>Grading {taskName}</h1>
       <div className="columns">
         <div className="column">
             <div className="tasks">

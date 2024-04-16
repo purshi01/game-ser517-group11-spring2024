@@ -9,7 +9,8 @@ const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const NameGenerator = () => {
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
-  const {courseId, courseTitle} = useParams('');
+
+  const {courseName} = useParams('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const NameGenerator = () => {
     const num = parseInt(numOfStudents);
     if (!isNaN(num) && num > 0) {
       const newStudents = [];
+      /*
       for (let i = 0; i < num; i++) {
         try {
           const response = await axios.post(`/instructors/courses/${courseId}/students`)
@@ -29,6 +31,20 @@ const NameGenerator = () => {
         } catch (error) {
           console.error('Error adding student to course:', error);
         }
+      }
+      */
+      try {
+        const response = await axios.post(`/generate_students`, {
+          n: num,
+          course_name: courseName,
+        });
+        console.log(response);
+        data = response.data;
+        studentIds = data.student_ids;
+        // TODO: backend for getting account info from ids
+        newStudents.push(`${newStudent.username},${newStudent.password}`);
+      } catch (error) {
+        console.error('Error adding student to course:', error);
       }
       if(generatedNames === '') {
         setGeneratedNames(newStudents.join('\n'))
@@ -54,7 +70,6 @@ const NameGenerator = () => {
   }
   return (
     <div className="container">
-      <h1>Generate Student Accounts for {courseTitle}</h1>
       <div className="columns">
         <div className="column">
           <textarea className="generated-names" 

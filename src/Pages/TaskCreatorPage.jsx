@@ -10,10 +10,10 @@ const TaskCreator = () => {
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [maxPoints, setMaxPoints] = useState('1');
-  const {courseTitle, courseId} = useParams('');
   const [validName, setValidName] = useState(true);
 
   const navigate = useNavigate();
+  const {courseName} = useParams('');
 
   useEffect(() => {
     document.title = `Add New Task to ${courseTitle}`
@@ -23,12 +23,13 @@ const TaskCreator = () => {
     setValidName(taskName.trim() !== '');
     if (validName) {
         try {
-            const response = await axios.post(`${API_BASE_URL}/courses/${courseId}/tasks`, {
-                name: taskName,
+              const response = await axios.post(`${API_BASE_URL}/create_task`, {
+                task_name: taskName,
                 description: taskDescription,
                 points: maxPoints,
-              });
-            console.log(response);
+                course_name: courseName,
+              });            
+              console.log(response);
             if (response.status = 201) {
                 console.log("successfully added")
                 navigate(`/instructor-dashboard`);
@@ -44,7 +45,6 @@ const TaskCreator = () => {
 
   return (
     <div className="container">
-      <h1>Add New Task to {courseTitle}</h1>
       <div className="form">
         <div className="section">
           <label>Task Name: </label>

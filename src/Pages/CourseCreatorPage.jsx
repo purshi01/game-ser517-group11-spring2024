@@ -13,6 +13,8 @@ const CourseCreator = () => {
   const [year, setYear] = useState('');
   const [validTitle, setValidTitle] = useState(true);
   const [validName, setValidName] = useState(true);
+
+  const [professorName, setProfessorName] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,13 +45,13 @@ const CourseCreator = () => {
  
     if (validTitle && validName) {
       try {
-        const response = await axios.post(`${API_BASE_URL}/courses`, {
-          title: courseTitle,
+        const response = await axios.post(`${API_BASE_URL}/create_course`, {
+          // title: courseTitle,
           name: courseName,
-          //instructor: instructor_id, // this comes from the login token thing i beleive?
-          semester: semester,
-          year: year,
-          description: courseDescription,
+          // semester: semester,
+          // year: year,
+          // description: courseDescription,
+          professor_name: professorName, // TODO: where is it from?
         });
         console.log(response);
         if (response.status === 201) {
@@ -65,9 +67,7 @@ const CourseCreator = () => {
 
   return (
     <div className="container">
-      <h1>Add New Course</h1>
       <div className="form">
-
         <div className="section">
           <label>Course Title: </label>
           <input 
