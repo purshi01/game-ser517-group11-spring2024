@@ -1,0 +1,61 @@
+.store-item {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #f9f9f9;
+}
+
+.store-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.store-item-info input[type="text"],
+.store-item-info input[type="number"],
+.store-item-info textarea {
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.store-item-info textarea {
+  resize: vertical; /* Allows vertical resize only */
+  min-height: 60px; /* Minimum height */
+}
+
+.store-item-info button {
+  padding: 8px 16px;
+  margin-right: 8px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: black;
+}
+
+.store-item-info button:hover {
+  opacity: 0.9;
+  background-color: rgba(0, 0, 0, 0.336);
+}
+
+.store-item-info button:nth-child(1) {
+  background-color: #4caf50; /* Save button color */
+}
+
+.store-item-info button:nth-child(2) {
+  background-color: #f44336; /* Cancel button color */
+}
+
+/* Layout adjustments for small screens */
+@media (max-width: 600px) {
+  .store-item-info {
+    width: auto;
+  }
+
+  .store-item-info button {
+    margin-bottom: 8px;
+  }
+}

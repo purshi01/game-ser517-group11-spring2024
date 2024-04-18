@@ -4,6 +4,12 @@
 
 .dashboard-grid {
   display: grid;
+  grid-template-columns: 1fr 1fr; /* Adjust these values based on your preference */
+  gap: 20px; /* Space between columns */
+  width: 100%; /* Adjust based on the maximum width you prefer */
+}
+.dashboard-student-grid {
+  display: grid;
   grid-template-columns: 1fr 2fr 1fr; /* Adjust these values based on your preference */
   gap: 20px; /* Space between columns */
   width: 100%; /* Adjust based on the maximum width you prefer */
