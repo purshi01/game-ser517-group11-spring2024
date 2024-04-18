@@ -11,6 +11,7 @@ import Header from "./components/navigation/Header";
 import Footer from "./components/navigation/Footer";
 import SignInPage from "./Pages/SignInPage";
 import SignUpPage from "./Pages/SignUpPage";
+import ShopPage from "./Pages/ShopPage";
 import StudentDashboard from "./Pages/StudentHomePage";
 import InstructorDashboard from "./Pages/InstructorHomePage";
 import PageBackGround from "./components/common/PageBackGround";
@@ -69,10 +70,8 @@ function App() {
               )
             }
           />
-          <Route
-            path="/NameGenerator"
-            element={<NameGenerator />}
-          />
+          <Route path="/NameGenerator" element={<NameGenerator />} />
+          <Route path="/shop" element={<ShopPage />} />
           {/* Define additional routes as needed */}
         </Routes>
         <Footer />
