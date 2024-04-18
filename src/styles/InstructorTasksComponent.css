@@ -1,0 +1,106 @@
+.tasks-container {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* Centers the container */
+  width: 80%; /* Adjust width as necessary */
+  gap: 20px; /* Space between tasks */
+}
+.task-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #000;
+  margin: auto;
+  gap: 30px;
+  background-color: #f0f0f0; /* Example background color for better visibility */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  border-radius: 4px; /* Optional rounded corners */
+  width: 800px; /* Set a fixed width */
+  height: 100px; /* Set a fixed height */
+  overflow: hidden; /* Ensures the content doesn't exceed the element's box */
+  box-sizing: border-box; /* Includes padding and border in the element's size */
+}
+.task-title {
+  font-size: 16px;
+  margin-right: 15px;
+}
+
+.task-details-container {
+  flex: 1; /* Takes up the remaining space */
+  display: flex; /* Establishes a flex context */
+  flex-direction: column; /* Stacks children vertically */
+  text-align: left;
+}
+
+.task-actions-container {
+  display: flex; /* Establishes a flex context */
+  align-items: center; /* Aligns children vertically in the center */
+  gap: 10px; /* Spaces out the action elements */
+}
+/* Styling for individual input fields */
+.new-task input[type="text"],
+.new-task input[type="number"] {
+  flex-grow: 1; /* Allows input to fill available space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Input and button styling */
+.new-task input[type="text"],
+.new-task input[type="number"],
+.task-row input[type="text"],
+.task-row input[type="number"],
+.task-row input[type="file"],
+.task-row input[type="image"],
+.task-row button {
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  margin: 5px;
+  flex: none; /* Buttons should not grow or shrink */
+}
+margin-right: 16px;
+
+/* Button-specific styling */
+.task-row .new-task button {
+  cursor: pointer;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.task-row button.delete {
+  background-color: #000000; /* Bootstrap danger color for Delete button */
+}
+
+.task-row button.save {
+  background-color: #000000; /* Bootstrap success color for Save button */
+}
+
+.task-row button.edit {
+  background-color: #000000; /* Bootstrap primary color for Edit button */
+}
+
+.task-row .tasks-container.new-task button:hover {
+  background-color: #00000063; /* Darker shade for hover state */
+}
+.new-task button:hover {
+  background-color: #00000063;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .task-row {
+    flex-direction: column;
+    align-items: stretch; /* Stretch children to fit the width of the container */
+  }
+
+  .task-row button,
+  .task-row input[type="file"] {
+    width: 100%; /* Full width buttons on smaller screens */
+    margin-top: 5px;
+  }
+}
