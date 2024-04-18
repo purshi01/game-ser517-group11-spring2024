@@ -74,12 +74,8 @@ function App() {
             }
           />
           <Route
-          path="/temp-instructor-dashboard"
-          element={ <InstructorDashboard />}
-        />
-          <Route
             path="/name-generator"
-            element={
+            element={                
               isLoggedIn && userType === "instructor" ? (
                 <NameGenerator />
               ) : (
@@ -89,7 +85,7 @@ function App() {
           />
           <Route
             path="/course-creator"
-            element={
+            element={                
               isLoggedIn && userType === "instructor" ? (
                 <CourseCreator />
               ) : (

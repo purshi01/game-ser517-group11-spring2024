@@ -60,13 +60,14 @@ const CourseCreator = () => {
           navigate(`/name-generator`, {state: {courseName }});
         } 
       } catch (error) {
-        console.error("Error adding course:", error.response.data);
+        console.error("Error adding course:", error);
       }
     }
   }
 
   return (
     <div className="container">
+      <h1> </h1>
       <div className="form">
         <div className="section">
           <label>Course Title: </label>

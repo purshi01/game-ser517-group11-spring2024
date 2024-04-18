@@ -16,7 +16,7 @@ const TaskCreator = () => {
   const {courseName} = useParams('');
 
   useEffect(() => {
-    document.title = `Add New Task to ${courseTitle}`
+    document.title = `Add New Task to ${courseName}`
   }, []);
 
   const handleAddTask = async () => {

@@ -545,7 +545,7 @@ const InstructorDashboard = () => {
             <LeaderboardComponent leaders={leaderboardData} />
           </div>
           <div className="tasks">
-            <TasksComponent tasks={taskListData} />
+            <InstructorTasksComponent tasks={taskListData} />
             <button className="add-task-button" onClick={addNewTask}>Add New Task</button>
           </div>
           {/* <div className="completed-tasks">
