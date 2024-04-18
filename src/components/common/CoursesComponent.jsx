@@ -9,26 +9,38 @@ const getRandomColor = () => {
   }
   return color;
 };
-const CoursesComponent = ({ courses, onCourseSelect }) => {
+
+const CoursesComponent = ({ courses, onCourseSelect, onDeleteCourse }) => {
+  const handleDelete = (event, courseId) => {
+    event.stopPropagation(); // Prevent onCourseSelect from being called
+    onDeleteCourse(courseId); // Invoke onDeleteCourse with the course ID
+  };
+
   return (
     <div className="courses-grid">
       {courses.map((course) => (
         <div
           key={course.id}
           className="course-card"
-          onClick={() => onCourseSelect(course.id)} // Invoke onCourseSelect with course ID
-          style={{ cursor: "pointer" }} // Optional: change cursor to indicate clickability
+          onClick={() => onCourseSelect(course.id, course.name)}
+          style={{ cursor: "pointer" }}
         >
           <div
             className="course-thumbnail"
             style={{ backgroundColor: getRandomColor() }}
           >
-            {/* Optional: if you want to display the course name or other details inside the thumbnail */}
+            <button
+              className="delete-button"
+              onClick={(event) => handleDelete(event, course.id)}
+            >
+              X
+            </button>
           </div>
-          <div className="course-name">{course.name}</div>
+          <div className="course-name">Course Name: {course.name}</div>
         </div>
       ))}
     </div>
   );
 };
+
 export default CoursesComponent;
