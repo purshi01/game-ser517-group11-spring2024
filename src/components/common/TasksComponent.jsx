@@ -8,12 +8,21 @@ const TasksComponent = ({ tasks }) => {
       <ul>
         {tasks.map((task) => (
           <li
-            key={task.id}
-            className={task.completed ? "completed" : "incomplete"}
+            key={task.task_id}
+            className={
+              task.scored_points === task.total_points
+                ? "completed"
+                : "incomplete"
+            }
           >
-            <span className="task-title">{task.title}</span>
+            <span className="task-title">{task.task_name}</span>
+            <span className="task-points">
+              {task.scored_points}/{task.total_points} Points
+            </span>
             <span className="task-status">
-              {task.completed ? "Completed" : "In complete"}
+              {task.scored_points === task.total_points
+                ? "Completed"
+                : "In complete"}
             </span>
           </li>
         ))}
