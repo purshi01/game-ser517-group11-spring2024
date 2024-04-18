@@ -38,11 +38,6 @@ table th {
   text-align: center;
 }
 
-.remaining-bucks {
-  text-align: right;
-  margin-top: 20px;
-}
-
 .leader-image {
   width: 100px; /* Adjust size as needed */
   height: auto;
