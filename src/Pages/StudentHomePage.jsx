@@ -5,133 +5,69 @@ import LeaderboardComponent from "../components/common/LeaderboardComponent";
 import TasksComponent from "../components/common/TasksComponent";
 
 const StudentDashboard = () => {
-  const dummyLeaders = [
-    {
-      id: 1,
-      name: "Vanessa",
-      lastName: "Lason",
-      score: 41,
-      courseName: "SER 231",
-      courseId: 1,
-      imageUrl:
-        "https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      id: 2,
-      name: "Jose",
-      lastName: "Roberts",
-      score: 29,
-      courseName: "SER 215",
-      courseId: 1,
-      imageUrl: "https://via.placeholder.com/150/FF0000/FFFFFF?text=Jose+R",
-    },
-    {
-      id: 3,
-      name: "Bob",
-      lastName: "Keebler",
-      score: 18,
-      courseName: "SER 322",
-      courseId: 1,
-      imageUrl: "https://via.placeholder.com/150/FFFF00/000000?text=Bob+K",
-    },
-    {
-      id: 4,
-      name: "Alice",
-      lastName: "Wonderland",
-      score: 35,
-      courseName: "SER 101",
-      courseId: 2,
-      imageUrl: "https://via.placeholder.com/150/000000/FFFFFF?text=Alice+W",
-    },
-    {
-      id: 5,
-      name: "Marco",
-      lastName: "Polo",
-      score: 23,
-      courseName: "SER 201",
-      courseId: 2,
-      imageUrl: "https://via.placeholder.com/150/008000/FFFFFF?text=Marco+P",
-    },
-    {
-      id: 6,
-      name: "Jessica",
-      lastName: "Jones",
-      score: 47,
-      courseName: "SER 303",
-      courseId: 2,
-      imageUrl: "https://via.placeholder.com/150/00FFFF/000000?text=Jessica+J",
-    },
-    {
-      id: 7,
-      name: "Clark",
-      lastName: "Kent",
-      score: 50,
-      courseName: "SER 404",
-      courseId: 3,
-      imageUrl: "https://via.placeholder.com/150/FF00FF/FFFFFF?text=Clark+K",
-    },
-    {
-      id: 8,
-      name: "Diana",
-      lastName: "Prince",
-      score: 38,
-      courseName: "SER 505",
-      courseId: 3,
-      imageUrl: "https://via.placeholder.com/150/FFFFFF/808080?text=Diana+P",
-    },
-    {
-      id: 9,
-      name: "Bruce",
-      lastName: "Wayne",
-      score: 42,
-      courseName: "SER 606",
-      courseId: 3,
-      imageUrl: "https://via.placeholder.com/150/000000/FFFFFF?text=Bruce+W",
-    },
-    {
-      id: 10,
-      name: "Tony",
-      lastName: "Stark",
-      score: 36,
-      courseName: "SER 707",
-      courseId: 4,
-      imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=Tony+S",
-    },
-  ];
-
-  const dummyTasks = [
-    {
-      id: 1,
-      courseId: 1,
-      title: "Design Patterns Assignment",
-      completed: true,
-    },
-    { id: 2, courseId: 1, title: "UML Diagrams Homework", completed: false },
-    { id: 3, courseId: 2, title: "Agile Methodologies Quiz", completed: true },
-    { id: 4, courseId: 3, title: "Normalization Lab", completed: false },
-    { id: 5, courseId: 4, title: "Binary Trees Exercise", completed: true },
-    // Add more tasks as needed
-  ];
-
   // State for leaderboard and task list based on the selected course
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [taskListData, setTaskListData] = useState([]);
+  const [myPosition, setMyPosition] = useState(null);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const courseId = localStorage.getItem("courseId");
+  const username = localStorage.getItem("userId");
   // Effect to fetch and set leaderboard and task list data when a course is selected
-
   useEffect(() => {
-    setLeaderboardData(dummyLeaders);
-    setTaskListData(dummyTasks);
-  }, []); // This effect only depends on selectedCourse
+    const fetchData = async () => {
+      try {
+        // Fetch leaderboard data
+        const leaderboardResponse = await fetch(
+          `${API_BASE_URL}/leaderboard/${courseId}`,
+          {
+            method: "GET",
+          }
+        );
+        if (!leaderboardResponse.ok) {
+          throw new Error("Failed to fetch student task data");
+        }
+        let leaderboard = await leaderboardResponse.json();
+        setLeaderboardData(leaderboard);
+
+        // Determine the user's position in the leaderboard
+        const position =
+          leaderboard.findIndex((user) => user.username === username) + 1;
+        setMyPosition(position); // Add 1 because array is zero-indexed
+
+        // Fetch task data
+        const taskDataResponse = await fetch(
+          `${API_BASE_URL}/student_tasks_scores/${username}/${courseId}`,
+          {
+            method: "GET",
+          }
+        );
+        if (!taskDataResponse.ok) {
+          throw new Error("Failed to fetch student task data");
+        }
+        const taskData = await taskDataResponse.json();
+        setTaskListData(taskData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle any errors that occurred during fetching
+      }
+    };
+
+    // Execute the async function
+    fetchData();
+
+    // The inclusion of dummyTasks here will immediately overwrite the task list data set by the fetch operation above.
+    // If dummyTasks are meant to be used as fallback or initial data, consider setting them conditionally or before making fetch calls.
+  }, [courseId, API_BASE_URL]); // Include API_BASE_URL in the dependency array if it's not a constant
 
   return (
     <div className="student-dashboard">
-      <div className="dashboard-grid">
+      <div className="dashboard-student-grid">
         <div className="my-position">
           <h2>My position</h2>
           <div className="gamer-rank-container">
-            <div className="rank-badge">{"6"}</div>
+            <div className="rank-badge">{myPosition}</div>
             <div className="gamer-info">
-              <h2 className="gamer-username">{"Purshi"}</h2>
+              <h2 className="gamer-username">{username}</h2>
             </div>
           </div>
         </div>
