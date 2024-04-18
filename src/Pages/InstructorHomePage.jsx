@@ -1,126 +1,17 @@
 import React, { useState, useEffect } from "react";
 import CoursesComponent from "../components/common/CoursesComponent";
 import LeaderboardComponent from "../components/common/LeaderboardComponent"; // Import the LeaderboardComponent
-import TasksComponent from "../components/common/TasksComponent"; // Import the TasksComponent
+import InstructorTasksComponent from "../components/common/InstructorTasksComponent"; // Import the TasksComponent
 import "../styles/InstructorHomePage.css";
 import "../styles/StudentHomePage.css";
+import "../styles/InstructorTasksComponent.css";
 import StoreItem from "../components/common/StoreItem";
+import * as XLSX from "xlsx";
+import { v4 as uuidv4 } from "uuid";
 
 const InstructorDashboard = () => {
-  // Dummy course data - replace this with actual data, perhaps fetched from an API
-  const [courses, setCourses] = useState([
-    { id: 1, name: "Course 1" },
-    { id: 2, name: "Course 2" },
-    { id: 3, name: "Course 3" },
-  ]);
-
-  const dummyLeaders = [
-    {
-      id: 1,
-      name: "Vanessa",
-      lastName: "Lason",
-      score: 41,
-      courseName: "SER 231",
-      courseId: 1,
-      imageUrl:
-        "https://images.pexels.com/photos/3762800/pexels-photo-3762800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    },
-    {
-      id: 2,
-      name: "Jose",
-      lastName: "Roberts",
-      score: 29,
-      courseName: "SER 215",
-      courseId: 1,
-      imageUrl: "https://via.placeholder.com/150/FF0000/FFFFFF?text=Jose+R",
-    },
-    {
-      id: 3,
-      name: "Bob",
-      lastName: "Keebler",
-      score: 18,
-      courseName: "SER 322",
-      courseId: 1,
-      imageUrl: "https://via.placeholder.com/150/FFFF00/000000?text=Bob+K",
-    },
-    {
-      id: 4,
-      name: "Alice",
-      lastName: "Wonderland",
-      score: 35,
-      courseName: "SER 101",
-      courseId: 2,
-      imageUrl: "https://via.placeholder.com/150/000000/FFFFFF?text=Alice+W",
-    },
-    {
-      id: 5,
-      name: "Marco",
-      lastName: "Polo",
-      score: 23,
-      courseName: "SER 201",
-      courseId: 2,
-      imageUrl: "https://via.placeholder.com/150/008000/FFFFFF?text=Marco+P",
-    },
-    {
-      id: 6,
-      name: "Jessica",
-      lastName: "Jones",
-      score: 47,
-      courseName: "SER 303",
-      courseId: 2,
-      imageUrl: "https://via.placeholder.com/150/00FFFF/000000?text=Jessica+J",
-    },
-    {
-      id: 7,
-      name: "Clark",
-      lastName: "Kent",
-      score: 50,
-      courseName: "SER 404",
-      courseId: 3,
-      imageUrl: "https://via.placeholder.com/150/FF00FF/FFFFFF?text=Clark+K",
-    },
-    {
-      id: 8,
-      name: "Diana",
-      lastName: "Prince",
-      score: 38,
-      courseName: "SER 505",
-      courseId: 3,
-      imageUrl: "https://via.placeholder.com/150/FFFFFF/808080?text=Diana+P",
-    },
-    {
-      id: 9,
-      name: "Bruce",
-      lastName: "Wayne",
-      score: 42,
-      courseName: "SER 606",
-      courseId: 3,
-      imageUrl: "https://via.placeholder.com/150/000000/FFFFFF?text=Bruce+W",
-    },
-    {
-      id: 10,
-      name: "Tony",
-      lastName: "Stark",
-      score: 36,
-      courseName: "SER 707",
-      courseId: 4,
-      imageUrl: "https://via.placeholder.com/150/808080/FFFFFF?text=Tony+S",
-    },
-  ];
-
-  const dummyTasks = [
-    {
-      id: 1,
-      courseId: 1,
-      title: "Design Patterns Assignment",
-      completed: true,
-    },
-    { id: 2, courseId: 1, title: "UML Diagrams Homework", completed: false },
-    { id: 3, courseId: 2, title: "Agile Methodologies Quiz", completed: true },
-    { id: 4, courseId: 3, title: "Normalization Lab", completed: false },
-    { id: 5, courseId: 4, title: "Binary Trees Exercise", completed: true },
-    // Add more tasks as needed
-  ];
+  const [courses, setCourses] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   const [items, setItems] = useState([
     // Existing item for Course 1
@@ -180,121 +71,371 @@ const InstructorDashboard = () => {
 
   const [newCourseName, setNewCourseName] = useState("");
   const [selectedCourseId, setSelectedCourseId] = useState(null);
-  const [leaderboardData, setLeaderboardData] = useState(dummyLeaders);
+  const [courseName, setSelectedCourseName] = useState(null);
+  const [leaderboardData, setLeaderboardData] = useState([]);
   const [studentCount, setStudentCount] = useState("");
-  const [taskListData, setTaskListData] = useState(dummyTasks);
+  const [taskListData, setTaskListData] = useState([]);
   const [newItem, setNewItem] = useState({
     name: "",
     price: "",
     quantity: "",
-    imageUrl: "",
+    description: "", // Added description to state
+    image: null,
   });
 
+  // const [items, setItems] = useState([]);
+  const [generationMessage, setGenerationMessage] = useState("");
+  const proffesorId = localStorage.getItem("proffesorId");
+
   useEffect(() => {
-    setLeaderboardData(dummyLeaders);
-    setTaskListData(dummyTasks);
-  }, []); // This effect only depends on selectedCourse
+    fetchCourses();
+    if (selectedCourseId) {
+      fetchTasksAndLeaderboard(selectedCourseId);
+    }
+    if (selectedCourseId) {
+      getItems(selectedCourseId).then(setItems);
+    }
+  }, [selectedCourseId]);
 
-  const addNewLeader = () => {
-    const newLeader = {
-      id:
-        leaderboardData.length > 0
-          ? Math.max(...leaderboardData.map((l) => l.id)) + 1
-          : 1,
-      name: "", // Placeholder name
-      score: 0, // Placeholder score
-      courseName: "New Course", // Placeholder courseName
-      courseId: selectedCourseId, // Assign to the currently selected course
-      imageUrl: "https://via.placeholder.com/150", // Placeholder image
-    };
-    setLeaderboardData([...leaderboardData, newLeader]);
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/read_course_table`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      const filteredCourses = data
+        .filter((course) => course.professor_id === proffesorId)
+        .map((course) => ({
+          id: course.course_id,
+          name: course.course_name,
+        }));
+      setCourses(filteredCourses);
+    } catch (error) {
+      console.error("Failed to fetch courses:", error);
+    }
   };
 
-  // Function to save changes
-  const saveLeaderboardChanges = (updatedLeaders) => {
-    setLeaderboardData(updatedLeaders);
-    // Handle saving to a backend or local storage here
+  const fetchLeaderBoard = async (courseId) => {
+    try {
+      const leaderboardResponse = await fetch(
+        `${API_BASE_URL}/leaderboard/${courseId}`,
+        {
+          method: "GET",
+        }
+      );
+      if (!leaderboardResponse.ok) {
+        throw new Error("Failed to fetch student task data");
+      }
+      let leaderboard = await leaderboardResponse.json();
+      setLeaderboardData(leaderboard);
+    } catch (error) {
+      console.error("Failed to fetch LeaderBoard:", error);
+    }
   };
 
-  const handleCourseSelect = (courseId) => {
+  const fetchTaskList = async (courseId) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/task/course/${courseId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch tasks");
+      }
+      const tasks = await response.json();
+      setTaskListData(tasks); // Assuming the response directly gives the tasks
+    } catch (error) {
+      console.error("Error loading tasks:", error);
+      setTaskListData([]); // Reset or handle errors as needed
+    }
+  };
+
+  const fetchTasksAndLeaderboard = (courseId) => {
+    try {
+      fetchTaskList(courseId);
+      fetchLeaderBoard(courseId);
+    } catch (error) {
+      console.error("Error fetching tasks or leaderboard:", error);
+    }
+  };
+
+  const handleCourseSelect = async (courseId, courseName) => {
     console.log("Selected course ID:", courseId);
     setSelectedCourseId(courseId);
-
-    // Filter the leaderboard and tasks for the selected course
-    const filteredLeaders = dummyLeaders.filter(
-      (leader) => leader.courseId === courseId
+    setSelectedCourseName(courseName);
+    fetchTasksAndLeaderboard(courseId);
+    const studentDataResponse = await fetch(
+      `${API_BASE_URL}/students/course/${courseId}`,
+      {
+        method: "GET",
+      }
     );
-    setLeaderboardData(filteredLeaders);
 
-    const filteredTasks = dummyTasks.filter(
-      (task) => task.courseId === courseId
-    );
-    setTaskListData(filteredTasks);
+    if (!studentDataResponse.ok) {
+      throw new Error("Failed to fetch generated student data");
+    }
+    let students = await studentDataResponse.json();
+
+    if (students.length === 0) {
+      return;
+    } else {
+      setGenerationMessage(
+        "Student IDs and passwords have been generated Already !!!."
+      );
+    }
+  };
+
+  const handleDeleteCourse = async (courseId) => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/delete_course/${courseId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete the Course");
+      } else {
+        await fetchCourses();
+      }
+
+      const result = await response.json();
+      alert(result.message); // Alert the success message
+      // Update local state only after confirming the task was deleted on the server
+    } catch (error) {
+      console.error("Error deleting Course:", error);
+      alert("Failed to delete task. Please try again.");
+    }
   };
 
   // Function to add a new course
-  const addNewCourse = () => {
+  const addNewCourse = async () => {
     if (!newCourseName.trim()) {
       alert("Please enter a course name.");
       return;
     }
+
+    const courseId = uuidv4();
+
     const newCourse = {
-      id: courses.length + 1, // Simple id generation for example purposes
-      name: newCourseName,
+      professor_id: proffesorId,
+      course_id: courseId,
+      course_name: newCourseName,
     };
-    setCourses([...courses, newCourse]);
-    setNewCourseName(""); // Reset the new course name input
-  };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewItem({ ...newItem, [name]: value });
-  };
+    try {
+      const response = await fetch(`${API_BASE_URL}/upsert_course`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCourse),
+      });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (
-      !newItem.name ||
-      !newItem.price ||
-      !newItem.quantity ||
-      !newItem.imageUrl
-    ) {
-      alert("Please fill in all fields.");
-      return;
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const responseData = await response.json();
+      console.log("Success:", responseData);
+
+      // If the API call is successful, update the local state
+      setCourses([...courses, { id: courseId, name: newCourseName }]);
+      setNewCourseName(""); // Reset the new course name input
+    } catch (error) {
+      console.error("Failed to add new course:", error);
+      alert("Failed to add new course. Please try again.");
     }
-    // Include the selectedCourseId with the new item
-    const itemWithCourseId = { ...newItem, courseId: selectedCourseId };
-    setItems([...items, itemWithCourseId]);
-    setNewItem({ name: "", price: "", quantity: "", imageUrl: "" }); // Reset form
   };
-  // Handler for changing student count
-  const handleStudentCountChange = (e) => {
-    setStudentCount(e.target.value);
+
+  const downloadStudentsExcel = (studentsData) => {
+    // Create a new workbook and worksheet
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(studentsData);
+
+    // Add the worksheet to the workbook under the name "Students"
+    XLSX.utils.book_append_sheet(wb, ws, "Students");
+
+    // Generate an XLSX file and trigger download
+    XLSX.writeFile(
+      wb,
+      `students_course_${studentsData[0]?.course_id || "unknown"}_${
+        new Date().toISOString().split("T")[0]
+      }.xlsx`
+    );
   };
-  // Function to generate IDs & Passwords then add to leaderboard
-  const generateIDsAndPasswords = () => {
+
+  // New function to generate student IDs and download them as an Excel file
+  const generateIDsAndPasswords = async () => {
     const count = parseInt(studentCount, 10);
     if (!count || count <= 0) {
       alert("Please enter a valid number of students.");
       return;
     }
 
-    const newEntries = [];
-    for (let i = 0; i < count; i++) {
-      const username = `user${i + 1}`;
-      const password = `pass${Math.random().toString(36).slice(-8)}`; // Simple random password generator
-      newEntries.push({
-        id: leaderboardData.length + i + 1, // Ensure unique ID
-        name: username,
-        score: "N/A", // Adjust based on your requirements
-        courseId: selectedCourseId, // Assuming you have a way to determine the current course ID
-        imageUrl: "https://via.placeholder.com/150", // Placeholder or adjust as needed
-        password, // Including password for demonstration; consider how you manage/store this securely
-      });
+    // Prepare the data for the API call
+    const requestData = {
+      n: count,
+      course_id: selectedCourseId, // Use the selected course ID from your state
+    };
+
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/generate_and_upsert_students`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to generate student IDs and passwords");
+      }
+
+      const fetchDataResponse = await fetch(
+        `${API_BASE_URL}/students/course/${selectedCourseId}`,
+        {
+          method: "GET",
+        }
+      );
+
+      if (!fetchDataResponse.ok) {
+        throw new Error("Failed to fetch generated student data");
+      }
+      let students = await fetchDataResponse.json();
+
+      if (students.length === 0) {
+        return;
+      } else {
+        setGenerationMessage("Student IDs and passwords have been generated.");
+      }
+
+      downloadStudentsExcel(students);
+      setStudentCount("");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to generate and download student data. Please try again.");
+      setGenerationMessage(
+        "Failed to generate student IDs and passwords. Please try again."
+      );
+    }
+  };
+
+  async function addItem(newItem) {
+    const item_id = uuidv4();
+    const jsonBody = JSON.stringify({
+      item_id: item_id,
+      item_name: newItem.name,
+      price: newItem.price,
+      item_quantity: newItem.quantity,
+      description: newItem.description,
+      course_id: selectedCourseId,
+    });
+
+    const response = await fetch(`${API_BASE_URL}/upsert_shop_items`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonBody,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
     }
 
-    setLeaderboardData([...leaderboardData, ...newEntries]);
-    setStudentCount(""); // Reset student count
+    const responseData = await response.json();
+    console.log("Item added successfully:", responseData);
+  }
+
+  async function getItems(courseId) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/items/${courseId}`, {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const itemsData = await response.json(); // Correctly parse the JSON response
+      setItems(itemsData);
+      console.log("Retrieved items:", itemsData);
+      return itemsData;
+    } catch (error) {
+      console.error("Failed to retrieve items:", error);
+      throw error; // It's a good practice to re-throw the error if you are handling it elsewhere
+    }
+  }
+
+  async function deleteItem(itemId) {
+    const response = await fetch(
+      `${API_BASE_URL}/delete_item/${selectedCourseId}/${itemId}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+    getItems(selectedCourseId);
+    console.log("Item deleted successfully");
+  }
+
+  const handleInputChange = (event) => {
+    const { name, value, files } = event.target;
+    setNewItem((prev) => ({
+      ...prev,
+      [name]: files ? files[0] : value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      await addItem(newItem);
+      setNewItem({ name: "", price: "", quantity: "", description: "" });
+      getItems(selectedCourseId); // Refresh the items list
+    } catch (error) {
+      console.error("Failed to add item:", error);
+    }
+  };
+
+  const onUpdate = async (updatedItem) => {
+    try {
+      const jsonBody = JSON.stringify({
+        item_id: updatedItem.item_id,
+        item_name: updatedItem.item_name,
+        price: updatedItem.points,
+        item_quantity: updatedItem.quantity,
+        description: updatedItem.description,
+        course_id: updatedItem.course_id,
+      });
+      const response = await fetch(`${API_BASE_URL}/upsert_shop_items`, {
+        method: "POST", // or 'PATCH' if partially updating
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonBody,
+      });
+
+      if (response.ok) {
+        // Update was successful, update state to reflect the changes
+        getItems(selectedCourseId);
+      } else {
+        // Handle any errors
+        throw new Error("Update failed: " + response.statusText);
+      }
+    } catch (error) {
+      console.error(error);
+      // Optionally inform the user that the update failed
+    }
   };
 
   return (
@@ -303,7 +444,9 @@ const InstructorDashboard = () => {
         <CoursesComponent
           courses={courses}
           onCourseSelect={handleCourseSelect}
+          onDeleteCourse={handleDeleteCourse}
         />
+        <p>Course Selected : {courseName}</p>
         <input
           type="text"
           value={newCourseName}
@@ -312,17 +455,32 @@ const InstructorDashboard = () => {
         />
         <button onClick={addNewCourse}>Add Course</button>
 
-        <input
-          type="text"
-          value={studentCount}
-          onChange={handleStudentCountChange}
-          placeholder="Enter number of students in this course"
-        />
-        <button onClick={generateIDsAndPasswords}>
-          Generate IDs & Passwords
-        </button>
+        {selectedCourseId && (
+          <div>
+            <input
+              type="text"
+              value={studentCount}
+              onChange={(e) => setStudentCount(e.target.value)}
+              placeholder="Enter number of students in this course"
+            />
+            <button onClick={generateIDsAndPasswords}>
+              Generate IDs & Passwords
+            </button>
+            {generationMessage && <div>{generationMessage}</div>}
+          </div>
+        )}
       </div>
-
+      {selectedCourseId && (
+        <div className="dashboard-task-grid">
+          {/* Possibly other components like leaderboard, etc. */}
+          <InstructorTasksComponent
+            taskListData={taskListData}
+            courseId={selectedCourseId}
+            leaderboardData={leaderboardData}
+            fetchTasksAndLeaderboard={fetchTasksAndLeaderboard}
+          />
+        </div>
+      )}
       {selectedCourseId && (
         <div className="dashboard-grid">
           <div className="leaderboard">
@@ -349,34 +507,42 @@ const InstructorDashboard = () => {
                 value={newItem.quantity}
                 onChange={handleInputChange}
               />
-              <input
-                type="text"
-                name="imageUrl"
-                placeholder="Image URL"
-                value={newItem.imageUrl}
+              <textarea
+                name="description"
+                placeholder="Description"
+                value={newItem.description}
                 onChange={handleInputChange}
+                rows="3" // Sets the height of the textarea
               />
+              {/* <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleInputChange}
+              /> */}
               <button type="submit">Add Item</button>
             </form>
+
             <div className="store-grid">
               {items
-                .filter((item) => item.courseId === selectedCourseId) // Only show items for the selected course
+                .filter((item) => item.course_id === selectedCourseId)
                 .map((item, index) => (
-                  <StoreItem key={index} item={item} />
+                  <StoreItem
+                    key={index}
+                    item={item}
+                    onDelete={deleteItem}
+                    onUpdate={onUpdate}
+                  />
                 ))}
             </div>
           </div>
           <div className="leaderboard">
             <h2>Leaderboard</h2>
-            <LeaderboardComponent
-              leaders={leaderboardData}
-              onSaveChanges={saveLeaderboardChanges}
-              onAddLeader={addNewLeader}
-            />
+            <LeaderboardComponent leaders={leaderboardData} />
           </div>
-          <div className="completed-tasks">
+          {/* <div className="completed-tasks">
             <TasksComponent tasks={taskListData} />
-          </div>
+          </div> */}
         </div>
       )}
     </div>
