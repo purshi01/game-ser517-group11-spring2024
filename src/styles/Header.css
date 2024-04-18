@@ -16,6 +16,11 @@
   right: 0; /* Ensures the header extends full width */
   z-index: 1000; /* Ensures the header is above other content */
 }
+.cart-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust this value as needed for space between elements */
+}
 /* Logo Styles */
 .site-header .logo img {
   height: auto; /* Set height to auto to maintain aspect ratio */
@@ -36,13 +41,63 @@
 .gold-coin-icon {
   width: 24px; /* Or any size you prefer */
   height: auto;
-  margin-right: 8px;
+  display: flex;
 }
 
-.remaining-bucks {
+.logout-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 5px 10px; /* Reduced padding */
+  margin-left: 20px;
+  font-size: 0.9rem; /* Keep font-size consistent */
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  align-self: center;
+  width: 80px; /* You can adjust this value as needed */
+}
+
+.cart-icon .remaining-bucks {
   display: flex;
   align-items: center;
-  /* Add more styles as needed */
+  gap: 5px; /* Adjust the space between icon and text */
+}
+.cart-icon .remaining-bucks,
+.cart-icon .bi-cart3,
+.cart-icon .logout-button {
+  display: flex;
+  align-items: center;
+}
+.cart-icon.instructor {
+  display: grid;
+  grid-template-columns: 0fr 0fr;
+  align-items: center;
+  float: right;
+  gap: 10px;
+}
+
+.cart-icon.student {
+  display: grid;
+  grid-template-columns: 1fr 0fr 1fr;
+  align-items: center;
+  float: right;
+  gap: 10px;
+}
+
+.cart-icon .bi-cart3 {
+  font-size: 1.5rem; /* Example size for cart icon */
+  width: auto;
+  height: auto;
+}
+
+.logout-button:hover {
+  background-color: #0000004b; /* A darker red for the hover state */
+}
+
+.logout-button:focus {
+  outline: none; /* Removes the default focus outline */
+  box-shadow: 0 0 0 3px rgba(30, 30, 30, 0.5); /* Adds a custom focus style */
 }
 
 /* Media Query for Mobile Devices */

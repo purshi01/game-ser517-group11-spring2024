@@ -5,6 +5,7 @@
 }
 
 .course-card {
+  position: relative;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
@@ -16,6 +17,26 @@
 .course-thumbnail {
   height: 100px;
   /* Set a background image if you have one */
+}
+
+.course-thumbnail .delete-button {
+  width: 20%;
+  height: 25%;
+  line-height: 25%; /* Same as the height to center the text vertically */
+  padding: 10px;
+  background-color: inherit;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  position: absolute; /* Position absolutely within .course-thumbnail */
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  z-index: 10; /* Ensure it's above other elements */
+  margin: 0px;
 }
 
 .course-name {

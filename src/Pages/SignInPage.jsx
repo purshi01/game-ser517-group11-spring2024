@@ -10,41 +10,65 @@ const SignInPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   // Correctly use useAuth here to access setIsLoggedIn and setUserType
-  const { setIsLoggedIn, setUserType, setRemainingBucks } = useAuth();
-
+  const {
+    setIsLoggedIn,
+    setUserType,
+    setRemainingBucks,
+    setUserId,
+    setCourseId,
+    setProffesorId,
+  } = useAuth();
   const handleSignIn = async (e) => {
     e.preventDefault();
+    // API_BASE_URL should be defined in your environment configuration or directly in your code
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
     try {
-      // const data = await signIn({ username, password });
-      // console.log('Sign In successful', data);
-      // data.userType = 'student';
-      const data = "student";
-      // Navigation logic based on user type
-      if (data === "student") {
-        localStorage.setItem("token", "1213131");
-        localStorage.setItem("userType", "student");
-        setIsLoggedIn(true);
-        setUserType("student");
-        setRemainingBucks(10);
-        navigate("/student-dashboard");
-      } else if (data === "instructor") {
-        console.log("Inside instructor function");
-        localStorage.setItem("token", "1213131");
-        localStorage.setItem("userType", "instructor");
-        setIsLoggedIn(true);
-        setUserType("instructor");
-        setRemainingBucks(10);
-        navigate("/instructor-dashboard");
-      } else {
-        // Handle unexpected user type
-        console.error("Unexpected user type");
+      const response = await fetch(`${API_BASE_URL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Incorrect username or password.");
       }
-    } catch (error) {
-      console.error(
-        "Sign In failed",
-        error.response ? error.response.data : error
+
+      const data = await response.json();
+      // const data = {
+      //   token: "123432234",
+      //   userType: "instructor",
+      //   username: "ex@gmail.com",
+      //   course_id: 7991,
+      // };
+      localStorage.setItem("token", data.token); // Assuming the token is returned in the response
+      localStorage.setItem("userType", data.userType);
+      localStorage.setItem("userId", data.username);
+      // Assuming the userId is returned in the response
+      setIsLoggedIn(true);
+      setUserType(data.userType);
+      if (data.userType === "student") {
+        localStorage.setItem("courseId", data.course_id);
+        setCourseId(data.course_id);
+      } else if (data.userType === "professor") {
+        localStorage.setItem("professorId", data.professor_id);
+        setProffesorId(data.professor_id);
+      }
+
+      setUserId(data.username); // Assuming you have a setter for userId in your auth context
+      setRemainingBucks(10); // Consider dynamically setting this value based on user data
+
+      // Navigate based on userType
+      navigate(
+        data.userType === "student"
+          ? "/student-dashboard"
+          : "/instructor-dashboard"
       );
-      setErrorMessage("Incorrect username or password.");
+    } catch (error) {
+      console.error("Authentication failed", error);
+      setErrorMessage(error.message || "An unexpected error occurred.");
     }
   };
 

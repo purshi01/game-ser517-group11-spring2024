@@ -11,6 +11,7 @@ import Header from "./components/navigation/Header";
 import Footer from "./components/navigation/Footer";
 import SignInPage from "./Pages/SignInPage";
 import SignUpPage from "./Pages/SignUpPage";
+import ShopPage from "./Pages/ShopPage";
 import StudentDashboard from "./Pages/StudentHomePage";
 import InstructorDashboard from "./Pages/InstructorHomePage";
 import PageBackGround from "./components/common/PageBackGround";
@@ -72,6 +73,7 @@ function App() {
               )
             }
           />
+<<<<<<< HEAD
           <Route
           path="/temp-instructor-dashboard"
           element={ <InstructorDashboard />}
@@ -103,6 +105,10 @@ function App() {
             element={<TaskCreator />}
           />  
 
+=======
+          <Route path="/NameGenerator" element={<NameGenerator />} />
+          <Route path="/shop" element={<ShopPage />} />
+>>>>>>> main
           {/* Define additional routes as needed */}
         </Routes>
         <Footer />

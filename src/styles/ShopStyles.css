@@ -1,0 +1,107 @@
+/* Base styles for the shop environment */
+.shop-body {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f0f8;
+  color: #333;
+  margin: 8% 8% 4% 8%;
+  padding: 20px;
+}
+
+/* Shop page title */
+.shop-title {
+  text-align: center;
+  color: #000000;
+}
+
+/* Layout for item cards in the shop */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.cart-total {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  padding: 10px;
+  background: #f0f0f8;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* Styling specific for each item card */
+.shop-item-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.shop-item-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.shop-item-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.shop-item-title {
+  margin-top: 0.5em;
+  color: #333;
+}
+
+/* Styles for the shopping cart */
+.shopping-cart {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  position: fixed;
+  right: 20px;
+  width: 300px;
+  top: 100px;
+}
+
+.cart-title {
+  text-align: center;
+  color: #000000;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-item-details {
+  font-size: 16px;
+}
+
+.action-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: #00000060;
+}

@@ -23,16 +23,21 @@ button:hover {
 }
 
 .store-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  display: flex; /* Sets the display to flex to align children in a row */
+  flex-wrap: wrap; /* Allows items to wrap onto the next line */
+  justify-content: center; /* Aligns items to the start of the flex line */
+  gap: 20px; /* Provides space between items */
+  padding: 20px; /* Padding around the grid for some spacing from container edges */
 }
 
 .store-item {
+  flex: 0 1 300px; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 300px */
+  display: flex;
+  flex-direction: column; /* Arranges children (like text and buttons) in a column */
   border: 1px solid #ccc;
+  border-radius: 4px;
   padding: 10px;
-  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .store-item-image {
@@ -43,6 +48,7 @@ button:hover {
 .store-form input[type="text"],
 .store-form input[type="number"],
 .store-form input[type="url"],
+.store-form input[type="file"],
 .store-form button {
   display: block;
   margin: 10px auto;
@@ -57,8 +63,23 @@ button:hover {
   border-radius: 4px;
 }
 
-.store-item-info h4 {
-  margin: 10px 0;
+.store-item-info h4,
+.store-item-info p {
+  margin: 5px 0;
+}
+.store-item-info button {
+  align-self: center;
+  padding: 8px 16px;
+  margin-top: auto; /* Pushes the button to the bottom of the container */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.store-item-info button:hover {
+  background-color: #0056b3;
 }
 
 .dashboard-grid-1 {
@@ -94,4 +115,39 @@ button:hover {
 
 .dashboard-grid-1 button:hover {
   background-color: #00000096; /* Darker shade of blue on hover */
+}
+.task-creation-form {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+}
+
+.task-creation-form input[type="text"],
+.task-creation-form input[type="number"] {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.task-creation-form button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.task-creation-form button:hover {
+  background-color: #45a049;
+}
+
+.dashboard-task-grid {
+  display: grid;
+  gap: 20px; /* Space between columns */
+  width: 100%; /* Adjust based on the maximum width you prefer */
 }
