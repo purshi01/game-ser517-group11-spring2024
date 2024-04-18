@@ -10,7 +10,7 @@ const NameGenerator = () => {
   const [generatedNames, setGeneratedNames] = useState('');
   const [numOfStudents, setNumOfStudents] = useState('1');
 
-  const {courseName} = useParams('');
+  const {course_name} = useParams('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,35 +21,19 @@ const NameGenerator = () => {
     const num = parseInt(numOfStudents);
     if (!isNaN(num) && num > 0) {
       const newStudents = [];
-      /*
-      for (let i = 0; i < num; i++) {
-        try {
-          const response = await axios.post(`/instructors/courses/${courseId}/students`)
-          console.log(response.data);
-          const newStudent = response.data;
-          newStudents.push(`${newStudent.username},${newStudent.password}`);
-        } catch (error) {
-          console.error('Error adding student to course:', error);
-        }
-      }
-      */
       try {
-        const response = await axios.post(`/generate_students`, {
+        const generate_response = await axios.post(`${API_BASE_URL}/generate_students`, {
           n: num,
-          course_name: courseName,
+          course_name: course_name,
         });
-        console.log(response);
-        data = response.data;
-        studentIds = data.student_ids;
-        // TODO: backend for getting account info from ids
-        newStudents.push(`${newStudent.username},${newStudent.password}`);
+        console.log(generate_response);
+        const read_response = await axios.post(`${API_BASE_URL}/get_student_accounts`, {
+          course_name: course_name,
+        });
+        console.log(read_response);
+        newStudents.push(read_response);
       } catch (error) {
         console.error('Error adding student to course:', error);
-      }
-      if(generatedNames === '') {
-        setGeneratedNames(newStudents.join('\n'))
-      } else {
-        setGeneratedNames(prevNames => prevNames + '\n' + newStudents.join('\n'));
       }
     }
   };
@@ -58,7 +42,7 @@ const NameGenerator = () => {
     const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent(generatedNames);
     const link = document.createElement("a");
     link.setAttribute("href", csvContent);
-    link.setAttribute("download", `${courseTitle}.csv`);
+    link.setAttribute("download", `${course_name}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

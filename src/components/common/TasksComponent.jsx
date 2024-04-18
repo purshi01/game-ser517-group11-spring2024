@@ -10,17 +10,8 @@ const TasksComponent = ({ tasks }) => {
   TasksComponent.getTasks = async (courseName) => {
     console.log('getting tasks');
     try {
-      /*
-      const response = await axios.get(`${API_BASE_URL}/courses/${courseId}/tasks`);
-      console.log(response);
-      if (response.status === 200) {
-        const data = response.data;
-        const taskList = data.tasks;
-        return taskList;
-      }
-      */
       const response = await axios.get(`${API_BASE_URL}/get_tasks`, {
-        course_name: courseName,
+          course_name: courseName,
       });
       console.log(response);
       if (response.status === 200) {
