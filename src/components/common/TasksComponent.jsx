@@ -7,16 +7,28 @@ const TasksComponent = ({ tasks }) => {
   const complete = tasks.filter(task => task.completed);
   const incomplete = tasks.filter(task => !task.completed);
 
-  TasksComponent.getTasks = async (courseId) => {
+  TasksComponent.getTasks = async (courseName) => {
     console.log('getting tasks');
     try {
-      const response = await axios.get(`/courses/${courseId}/tasks`);
+      /*
+      const response = await axios.get(`${API_BASE_URL}/courses/${courseId}/tasks`);
       console.log(response);
       if (response.status === 200) {
         const data = response.data;
         const taskList = data.tasks;
         return taskList;
       }
+      */
+      const response = await axios.get(`${API_BASE_URL}/get_tasks`, {
+        course_name: courseName,
+      });
+      console.log(response);
+      if (response.status === 200) {
+        const data = response.data;
+        const taskList = data.tasks;
+        return taskList;
+      }
+
     } catch (error) {
       console.error("Error getting task name", error);
     }
