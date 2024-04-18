@@ -73,7 +73,6 @@ function App() {
               )
             }
           />
-<<<<<<< HEAD
           <Route
           path="/temp-instructor-dashboard"
           element={ <InstructorDashboard />}
@@ -104,11 +103,8 @@ function App() {
             path="task-creation"
             element={<TaskCreator />}
           />  
-
-=======
           <Route path="/NameGenerator" element={<NameGenerator />} />
           <Route path="/shop" element={<ShopPage />} />
->>>>>>> main
           {/* Define additional routes as needed */}
         </Routes>
         <Footer />
