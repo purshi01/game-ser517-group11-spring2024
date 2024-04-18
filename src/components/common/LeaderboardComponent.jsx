@@ -20,7 +20,7 @@ const LeaderboardComponent = ({ leaders, courseName }) => {
               className="leader-image"
             />
             <p>Today's Leader: {leaders[0].username}</p>
-            <p>Course Name: {courseName}</p> {/* Use passed courseName prop */}
+            {/* <p>Course Name: {courseName}</p> Use passed courseName prop */}
           </div>
         )}
         <table>

@@ -14,50 +14,49 @@ const StudentDashboard = () => {
   const username = localStorage.getItem("userId");
   // Effect to fetch and set leaderboard and task list data when a course is selected
   useEffect(() => {
+    let isActive = true; // Flag to manage cleanup and avoid setting state on unmounted component
+
     const fetchData = async () => {
+      if (!courseId || !username) return;
+
       try {
         // Fetch leaderboard data
         const leaderboardResponse = await fetch(
-          `${API_BASE_URL}/leaderboard/${courseId}`,
-          {
-            method: "GET",
-          }
+          `${API_BASE_URL}/leaderboard/${courseId}`
         );
         if (!leaderboardResponse.ok) {
-          throw new Error("Failed to fetch student task data");
+          throw new Error("Failed to fetch leaderboard data");
         }
-        let leaderboard = await leaderboardResponse.json();
-        setLeaderboardData(leaderboard);
-
-        // Determine the user's position in the leaderboard
-        const position =
-          leaderboard.findIndex((user) => user.username === username) + 1;
-        setMyPosition(position); // Add 1 because array is zero-indexed
+        const leaderboard = await leaderboardResponse.json();
 
         // Fetch task data
         const taskDataResponse = await fetch(
-          `${API_BASE_URL}/student_tasks_scores/${username}/${courseId}`,
-          {
-            method: "GET",
-          }
+          `${API_BASE_URL}/student_tasks_scores/${username}/${courseId}`
         );
         if (!taskDataResponse.ok) {
           throw new Error("Failed to fetch student task data");
         }
         const taskData = await taskDataResponse.json();
-        setTaskListData(taskData);
+
+        if (isActive) {
+          setLeaderboardData(leaderboard);
+          setTaskListData(taskData);
+
+          const position =
+            leaderboard.findIndex((user) => user.username === username) + 1;
+          setMyPosition(position); // Add 1 because array is zero-indexed
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
-        // Handle any errors that occurred during fetching
       }
     };
 
-    // Execute the async function
     fetchData();
 
-    // The inclusion of dummyTasks here will immediately overwrite the task list data set by the fetch operation above.
-    // If dummyTasks are meant to be used as fallback or initial data, consider setting them conditionally or before making fetch calls.
-  }, [courseId, API_BASE_URL]); // Include API_BASE_URL in the dependency array if it's not a constant
+    return () => {
+      isActive = false; // Set flag to false on cleanup to avoid setting state
+    };
+  }, [courseId, username, API_BASE_URL]); // Ensure username is also a dependency if it can change
 
   return (
     <div className="student-dashboard">

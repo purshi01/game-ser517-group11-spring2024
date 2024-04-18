@@ -22,7 +22,7 @@ const Cart = ({ items, onRemoveFromCart, onCheckout }) => {
         </div>
       ))}
       <div className="cart-total">Total Points: {totalPoints}</div>
-      <button className="action-button" onClick={onCheckout}>
+      <button className="action-button" onClick={() => onCheckout(totalPoints)}>
         Checkout
       </button>
     </div>
