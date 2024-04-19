@@ -49,6 +49,7 @@ const TaskView = () => {
   }
   
 
+  /*
   const getTaskName = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/courses/${courseId}/${taskId}`); // TODO: Update when backend there
@@ -61,6 +62,7 @@ const TaskView = () => {
       console.error('Error getting task name', error);
     }
   }
+  */
   /*
     This should handle changing the file type, and when a file is added,
     it should parse the file and display it through setFormatedGrades.
