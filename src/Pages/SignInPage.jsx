@@ -9,20 +9,19 @@ const SignInPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  // Correctly use useAuth here to access setIsLoggedIn and setUserType
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
   const {
     setIsLoggedIn,
     setUserType,
     setRemainingBucks,
     setUserId,
     setCourseId,
-    setProffesorId,
+    setProfessorId,
   } = useAuth();
+
   const handleSignIn = async (e) => {
     e.preventDefault();
-    // API_BASE_URL should be defined in your environment configuration or directly in your code
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
     try {
       const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
@@ -37,28 +36,25 @@ const SignInPage = () => {
       }
 
       const data = await response.json();
-      // const data = {
-      //   token: "123432234",
-      //   userType: "instructor",
-      //   username: "ex@gmail.com",
-      //   course_id: 7991,
-      // };
-      localStorage.setItem("token", data.token); // Assuming the token is returned in the response
-      localStorage.setItem("userType", data.userType);
-      localStorage.setItem("userId", data.username);
-      // Assuming the userId is returned in the response
       setIsLoggedIn(true);
       setUserType(data.userType);
-      if (data.userType === "student") {
-        localStorage.setItem("courseId", data.course_id);
-        setCourseId(data.course_id);
-      } else if (data.userType === "professor") {
-        localStorage.setItem("professorId", data.professor_id);
-        setProffesorId(data.professor_id);
-      }
+      setUserId(data.username);
 
-      setUserId(data.username); // Assuming you have a setter for userId in your auth context
-      setRemainingBucks(10); // Consider dynamically setting this value based on user data
+      // Assuming the token and userType are returned in the response
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userType", data.userType);
+      localStorage.setItem("userId", data.username);
+
+      // Now we fetch the points
+      await getAvailablePoints(data.username); // Await the points fetching
+
+      if (data.userType === "student") {
+        setCourseId(data.course_id);
+        localStorage.setItem("courseId", data.course_id);
+      } else if (data.userType === "professor") {
+        setProfessorId(data.professor_id);
+        localStorage.setItem("professorId", data.professor_id);
+      }
 
       // Navigate based on userType
       navigate(
@@ -69,6 +65,23 @@ const SignInPage = () => {
     } catch (error) {
       console.error("Authentication failed", error);
       setErrorMessage(error.message || "An unexpected error occurred.");
+    }
+  };
+
+  const getAvailablePoints = async (username) => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/get_available_points/${username}`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch available points.");
+      }
+      const data = await response.json();
+      setRemainingBucks(data.available_points);
+      localStorage.setItem("remainingBucks", data.available_points);
+    } catch (error) {
+      console.error("There was an error fetching points", error);
+      setErrorMessage("Could not fetch points. Please try again later.");
     }
   };
 

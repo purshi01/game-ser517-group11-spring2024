@@ -8,34 +8,13 @@ import goldCoinIcon from "../../assets/dollar.jpg";
 
 const Header = () => {
   const navigate = useNavigate();
-  const {
-    isLoggedIn,
-    userType,
-    remainingBucks,
-    setIsLoggedIn,
-    setUserType,
-    setRemainingBucks,
-    setUserId,
-    setCourseId,
-  } = useAuth();
+  const { isLoggedIn, userType, remainingBucks, logout } = useAuth();
 
   const handleLogout = () => {
-    // Clear context and local storage
-    setIsLoggedIn(false);
-    setUserType(null);
-    setRemainingBucks(0);
-    setUserId(null);
-    setCourseId(null);
-
-    // Clear localStorage
-    localStorage.removeItem("token");
-    localStorage.removeItem("userType");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("courseId");
-
-    // Redirect to home/login page
+    logout();
     navigate("/");
   };
+
   const goToShop = () => {
     navigate("/shop");
   };
@@ -43,7 +22,7 @@ const Header = () => {
   return (
     <header className="site-header">
       <div className="logo">
-        <Link to={"/"}>
+        <Link to="/">
           <img src={logo} alt="BrainBucks Logo" />
         </Link>
       </div>
@@ -66,7 +45,7 @@ const Header = () => {
               className="bi bi-cart3"
               onClick={goToShop}
               style={{ cursor: "pointer" }}
-            ></i>{" "}
+            ></i>
           </>
         )}
         <button onClick={handleLogout} className="logout-button">
