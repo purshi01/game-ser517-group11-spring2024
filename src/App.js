@@ -91,17 +91,39 @@ function App() {
               ) : (
                 <Navigate to="/signin" />
               )
-            }/>
+            }
+          />
           <Route
             path="/grade-task"
-            element={ <TaskView />}/>
+            element={                
+              isLoggedIn && userType === "instructor" ? (
+                <TaskView />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
+          />
           <Route
             path="task-creation"
-            element={<TaskCreator />}
+            element={                
+              isLoggedIn && userType === "instructor" ? (
+                <TaskCreator />
+              ) : (
+                <Navigate to="/signin" />
+              )
+            }
           />  
           <Route path="/NameGenerator" element={<NameGenerator />} />
           <Route path="/shop" element={<ShopPage />} />
           {/* Define additional routes as needed */}
+          <Route
+            path="/temp-grade-task"
+            element = { <TaskView /> }
+          />
+          <Route
+            path="/temp-create-task"
+            element = { <TaskCreator /> }
+          />
         </Routes>
         <Footer />
       </div>

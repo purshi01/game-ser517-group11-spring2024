@@ -32,6 +32,7 @@ const NameGenerator = () => {
         });
         console.log(read_response);
         newStudents.push(read_response);
+        setGeneratedNames(read_response);
       } catch (error) {
         console.error('Error adding student to course:', error);
       }

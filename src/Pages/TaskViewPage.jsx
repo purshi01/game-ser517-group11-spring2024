@@ -51,10 +51,10 @@ const TaskView = () => {
 
   const getTaskName = async () => {
     try {
-      const response = await axios.get(`/courses/${courseId}/${taskId}`); // TODO: Update when backend there
+      const response = await axios.get(`${API_BASE_URL}/courses/${courseId}/${taskId}`); // TODO: Update when backend there
       console.log(response)
       if (response.status === 200) {
-        taskName = response.data.task_name;
+        setTaskName(response.data.task_name);
         setTaskName(taskName);
       }
     } catch (error) {

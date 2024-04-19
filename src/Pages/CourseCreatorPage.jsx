@@ -56,7 +56,6 @@ const CourseCreator = () => {
         console.log(response);
         if (response.status === 201) {
           console.log("Fields are valid, moving to student creation.");
-          const courseId = response.data.course_id;
           navigate(`/name-generator`, {state: {courseName }});
         } 
       } catch (error) {

@@ -17,7 +17,7 @@ const TaskCreator = () => {
 
   useEffect(() => {
     document.title = `Add New Task to ${courseName}`
-  }, []);
+  });
 
   const handleAddTask = async () => {
     setValidName(taskName.trim() !== '');
@@ -30,12 +30,12 @@ const TaskCreator = () => {
                 course_name: courseName,
               });            
               console.log(response);
-            if (response.status = 201) {
+            if (response.status === 201) {
                 console.log("successfully added")
                 navigate(`/instructor-dashboard`);
             }
         } catch (error) {
-            console.error("Error adding task", error.response.data);
+            console.error("Error adding task", error);
         }
     }
   };
@@ -45,6 +45,7 @@ const TaskCreator = () => {
 
   return (
     <div className="container">
+      <h1> </h1>
       <div className="form">
         <div className="section">
           <label>Task Name: </label>
