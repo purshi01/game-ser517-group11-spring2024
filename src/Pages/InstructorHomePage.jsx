@@ -13,61 +13,7 @@ const InstructorDashboard = () => {
   const [courses, setCourses] = useState([]);
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-  const [items, setItems] = useState([
-    // Existing item for Course 1
-    {
-      name: "Example Item 1",
-      price: "100",
-      quantity: "5",
-      imageUrl: "https://example.com/image1.jpg",
-      courseId: 1,
-    },
-    // Adding more items for Course 1
-    {
-      name: "Course 1 Textbook",
-      price: "50",
-      quantity: "10",
-      imageUrl: "https://example.com/course1textbook.jpg",
-      courseId: 1,
-    },
-    {
-      name: "Course 1 Workbook",
-      price: "30",
-      quantity: "15",
-      imageUrl: "https://example.com/course1workbook.jpg",
-      courseId: 1,
-    },
-    // Items for Course 2
-    {
-      name: "Course 2 Calculator",
-      price: "20",
-      quantity: "25",
-      imageUrl: "https://example.com/course2calculator.jpg",
-      courseId: 2,
-    },
-    {
-      name: "Course 2 Lab Kit",
-      price: "100",
-      quantity: "8",
-      imageUrl: "https://example.com/course2labkit.jpg",
-      courseId: 2,
-    },
-    // Items for Course 3
-    {
-      name: "Course 3 Notebook",
-      price: "10",
-      quantity: "50",
-      imageUrl: "https://example.com/course3notebook.jpg",
-      courseId: 3,
-    },
-    {
-      name: "Course 3 Pen Set",
-      price: "5",
-      quantity: "100",
-      imageUrl: "https://example.com/course3penset.jpg",
-      courseId: 3,
-    },
-  ]);
+  const [items, setItems] = useState([]);
 
   const [newCourseName, setNewCourseName] = useState("");
   const [selectedCourseId, setSelectedCourseId] = useState(null);
