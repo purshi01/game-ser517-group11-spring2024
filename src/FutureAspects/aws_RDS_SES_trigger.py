@@ -18,7 +18,7 @@ def lambda_handler(event, context):
     
     if new_data:
         # Send email notification using SES
-        ses_client = boto3.client('ses', region_name='your-region')
+        ses_client = boto3.client('ses', region_name='us-west-1')
         recipient_email = 'recipient-email@example.com'
         subject = 'New data inserted into database'
         body = 'New data has been inserted into the database: {}'.format(new_data)
