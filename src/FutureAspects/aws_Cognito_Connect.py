@@ -35,6 +35,6 @@ def create_users_in_cognito(userpool_id, num_users, user_type):
             print(f"Error creating user {username}: {e}")
 
 userpool_id = 'pool_id'
-num_users = 10
+num_users = input("Enter number of students")
 
 create_users_in_cognito(userpool_id, num_users)
