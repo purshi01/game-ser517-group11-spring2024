@@ -81,15 +81,21 @@ const ShopPage = () => {
       });
       if (!response.ok)
         throw new Error("Checkout failed: " + response.statusText);
+
+      let itemDetails = "";
+      cart.forEach((item) => {
+        itemDetails += `${item.item_name} - ${item.quantity} x ${item.points} Points\n`;
+      });
+
       const sendEmail = await fetch(`${API_BASE_URL}/send_email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          subject: "A store purchase is performed by " + localStorage.getItem("userId"),
+          subject: `Purchase by ${localStorage.getItem("userId")}`,
           recipient: "gameasu2024@gmail.com",
-          body: "The user mentioned made the following purchases" + cart,
+          body: `The user mentioned made the following purchases ${itemDetails}`,
         }),
       });
       if (!sendEmail.ok)
