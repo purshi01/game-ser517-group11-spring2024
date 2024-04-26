@@ -11,7 +11,7 @@ function InstructorTasksComponent({
 }) {
   const [tasks, setTasks] = useState(taskListData || []);
   const [leaderboard, setLeaderboardData] = useState(leaderboardData || []);
-  const [newTask, setNewTask] = useState({ task_name: "", points: "" });
+  const [newTask, setNewTask] = useState({ task_name: "", points: "", task_desc:"" });
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function InstructorTasksComponent({
     const taskId = uuidv4();
     const taskToAdd = { ...newTask, task_id: taskId }; // Use UUID for unique ID
     setTasks([...tasks, taskToAdd]);
-    setNewTask({ task_name: "", points: "" });
+    setNewTask({ task_name: "", points: "", task_desc: ""});
   };
 
   const handleUpdateTask = (updatedTask) => {
@@ -89,6 +89,15 @@ function InstructorTasksComponent({
             })
           }
           placeholder="Task Points"
+          required
+        />
+        <input
+          type="text"
+          value={newTask.task_desc}
+          onChange={(e) =>
+            setNewTask({ ...newTask, task_desc: e.target.value })
+          }
+          placeholder="Task Description"
           required
         />
         <button onClick={handleAddTask}>Add Task</button>

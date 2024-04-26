@@ -31,7 +31,8 @@ const InstructorDashboard = () => {
 
   // const [items, setItems] = useState([]);
   const [generationMessage, setGenerationMessage] = useState("");
-  const proffesorId = localStorage.getItem("proffesorId");
+  //const proffesorId = localStorage.getItem("proffesorId");
+  const proffesorId = localStorage.getItem("userId");
 
   useEffect(() => {
     fetchCourses();

@@ -82,6 +82,25 @@ const ShopPage = () => {
       if (!response.ok)
         throw new Error("Checkout failed: " + response.statusText);
 
+      let itemDetails = "";
+      cart.forEach((item) => {
+        itemDetails += `${item.item_name} - ${item.quantity} x ${item.points} Points\n`;
+      });
+
+      const sendEmail = await fetch(`${API_BASE_URL}/send_email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          subject: `Purchase by ${localStorage.getItem("userId")}`,
+          recipient: "gameasu2024@gmail.com",
+          body: `The user mentioned made the following purchases ${itemDetails}`,
+        }),
+      });
+      if (!sendEmail.ok)
+        throw new Error("Message Not Sent failed: " + sendEmail.statusText);
+
       const result = await response.json();
       alert("Checkout successful! Transaction ID: " + result.transaction_id);
       setCart([]);
