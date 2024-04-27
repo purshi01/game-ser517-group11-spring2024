@@ -16,7 +16,6 @@ function InstructorTasksComponent({
     points: "",
     task_description: "",
   });
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     if (taskListData) {
