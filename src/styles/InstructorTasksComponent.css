@@ -19,7 +19,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
   border-radius: 4px; /* Optional rounded corners */
   width: 800px; /* Set a fixed width */
-  height: 100px; /* Set a fixed height */
+  height: 150px; /* Set a fixed height */
   overflow: hidden; /* Ensures the content doesn't exceed the element's box */
   box-sizing: border-box; /* Includes padding and border in the element's size */
 }

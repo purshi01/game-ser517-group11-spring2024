@@ -11,7 +11,11 @@ function InstructorTasksComponent({
 }) {
   const [tasks, setTasks] = useState(taskListData || []);
   const [leaderboard, setLeaderboardData] = useState(leaderboardData || []);
-  const [newTask, setNewTask] = useState({ task_name: "", points: "" });
+  const [newTask, setNewTask] = useState({
+    task_name: "",
+    points: "",
+    task_description: "",
+  });
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
@@ -24,14 +28,14 @@ function InstructorTasksComponent({
   }, [taskListData, leaderboardData]);
 
   const handleAddTask = () => {
-    if (!newTask.task_name || !newTask.points) {
+    if (!newTask.task_name || !newTask.points || !newTask.task_description) {
       alert("Please fill in all required fields.");
       return;
     }
     const taskId = uuidv4();
     const taskToAdd = { ...newTask, task_id: taskId }; // Use UUID for unique ID
     setTasks([...tasks, taskToAdd]);
-    setNewTask({ task_name: "", points: "" });
+    setNewTask({ task_name: "", points: "", task_description: "" });
   };
 
   const handleUpdateTask = (updatedTask) => {
@@ -77,6 +81,15 @@ function InstructorTasksComponent({
             setNewTask({ ...newTask, task_name: e.target.value })
           }
           placeholder="New Task Title"
+          required
+        />
+        <input
+          type="text"
+          value={newTask.task_description}
+          onChange={(e) =>
+            setNewTask({ ...newTask, task_description: e.target.value })
+          }
+          placeholder="New Task description"
           required
         />
         <input

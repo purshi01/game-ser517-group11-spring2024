@@ -25,6 +25,7 @@ function TaskRow({
         task_id: task.task_id,
         students: fileData,
         task_title: editedTask.task_name,
+        task_description: editedTask.task_description,
         task_points: editedTask.points,
         course_id: courseId,
       };
@@ -127,14 +128,23 @@ function TaskRow({
               name="points"
               onChange={handleEditChange}
             />
+            <input
+              type="text"
+              value={editedTask.task_description}
+              name="task_description"
+              onChange={handleEditChange}
+            />
           </>
         ) : (
-          <div className="task-info">
-            <span className="task-title">{task.task_name}</span>
-            <span className="task-details">
-              [Task: {taskNumber}] Points: {task.points}
-            </span>
-          </div>
+          <>
+            <div className="task-info">
+              <span className="task-title">{task.task_name}</span>
+              <span className="task-details">
+                [Task: {taskNumber}] Points: {task.points}
+              </span>
+              <span className="task-title">{task.task_description}</span>
+            </div>
+          </>
         )}
       </div>
       <div className="task-actions-container">
