@@ -48,9 +48,13 @@ const Header = () => {
             ></i>
           </>
         )}
-        <button onClick={handleLogout} className="logout-button">
-          Logout
-        </button>
+        {isLoggedIn && (
+          <>
+            <button onClick={handleLogout} className="logout-button">
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </header>
   );
